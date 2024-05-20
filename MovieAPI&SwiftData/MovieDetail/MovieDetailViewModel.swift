@@ -11,6 +11,7 @@ class MovieDetailViewModel: ObservableObject {
     let networkService: NetworkRequestUseCase
     @Published var movieInformation: Movie
     @Published var movieDetail: MovieDetailModel?
+    @Published var isFavoriteMovie = true
     @Published var isLoading = true
 
     init(

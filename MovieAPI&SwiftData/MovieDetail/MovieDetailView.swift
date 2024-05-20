@@ -21,11 +21,12 @@ struct MovieDetailView: View {
                     image: UIImage().dataConvert(
                         data: viewModel.movieInformation.imageData
                     ),
+                    isFavorite: viewModel.isFavoriteMovie,
                     cardSize: .big
                 )
                 .frame(height: 600)
                 .ignoresSafeArea(edges: .top)
-                VStack(alignment: .center, spacing: 8) {
+                VStack(alignment: .center, spacing: 8) { // create view Builder
                     Text(viewModel.movieDetail?.originalTitle ?? "")
                         .multilineTextAlignment(.center)
                         .font(.title)

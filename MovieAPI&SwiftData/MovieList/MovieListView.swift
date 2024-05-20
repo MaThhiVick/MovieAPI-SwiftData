@@ -33,6 +33,7 @@ struct MovieListView: View {
                                     image: UIImage().dataConvert(
                                         data: movie.imageData
                                     ),
+                                    isFavorite: true,
                                     cardSize: .big
                                 )
                             }
@@ -46,11 +47,24 @@ struct MovieListView: View {
                         NavigationLink(destination: MovieDetailView(movieInformation: movie)) {
                             MovieCard(
                                 image: UIImage().dataConvert(data: movie.imageData),
+                                isFavorite: true,
                                 cardSize: .small
                             )
                         }
                     }
                     .padding(.top, 32)
+
+                    Carousel(items: $viewModel.favoritesMovies, title: "Favorite") { index, movie in
+                        NavigationLink(destination: MovieDetailView(movieInformation: movie)) {
+                            MovieCard(
+                                image: UIImage().dataConvert(data: movie.imageData),
+                                isFavorite: true,
+                                cardSize: .small
+                            )
+                        }
+                    }
+                    .padding(.top, 32)
+
                 }
                 .redacted(reason: $viewModel.isLoading.wrappedValue == true ? .placeholder : [])
                 .onAppear {

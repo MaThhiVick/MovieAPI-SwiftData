@@ -12,6 +12,7 @@ final class MovieListViewModel: ObservableObject {
     let networkService: NetworkRequestUseCase
     @Published var topRatedList = [Movie]()
     @Published var popularList = [Movie]()
+    @Published var favoritesMovies = [Movie]()
     @Published var isLoading = true
 
     init(movieProvider: MovieDataProviderProtocol = MovieDataProvider(),

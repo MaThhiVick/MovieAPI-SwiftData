@@ -14,13 +14,17 @@ enum MovieCardType {
 
 struct MovieCard: View {
     @State var image: UIImage
+    @State var isFavorite: Bool
     let cardSize: MovieCardType
+
 
     init(
         image: UIImage,
+        isFavorite: Bool,
         cardSize: MovieCardType
     ) {
         self.image = image
+        self.isFavorite = isFavorite
         self.cardSize = cardSize
     }
 
@@ -30,12 +34,26 @@ struct MovieCard: View {
                 ZStack(alignment: .topTrailing) {
                     Image(uiImage: image)
                         .resizable()
+                    Button(action: {
+                        isFavorite.toggle()
+                    }, label: {
+                        BookmarkIcon(isFavorite: $isFavorite)
+                            .padding(.trailing, 12)
+                            .padding(.top, 12)
+                            .scaleEffect(1.6)
+                    })
+
                 }
             } else {
                 ZStack(alignment: .topTrailing) {
                     Image(uiImage: image)
                         .resizable()
                         .frame(width: 150, height: 170)
+                    Button(action: {
+                        isFavorite.toggle()
+                    }, label: {
+                        BookmarkIcon(isFavorite: $isFavorite)
+                    })
                 }
             }
         }
