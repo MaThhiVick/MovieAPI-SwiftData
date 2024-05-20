@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,7 @@
 		60194BA92BFB71A80040C037 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60194BA82BFB71A80040C037 /* Assets.xcassets */; };
 		60194BAC2BFB71A80040C037 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60194BAB2BFB71A80040C037 /* Preview Assets.xcassets */; };
 		60194BB62BFB71A90040C037 /* MovieAPI_SwiftDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60194BB52BFB71A90040C037 /* MovieAPI_SwiftDataTests.swift */; };
+		606AD4FA2BFB789600294319 /* NetworkService in Frameworks */ = {isa = PBXBuildFile; productRef = 606AD4F92BFB789600294319 /* NetworkService */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				606AD4FA2BFB789600294319 /* NetworkService in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,6 +62,7 @@
 				60194BA12BFB71A60040C037 /* MovieAPI&SwiftData */,
 				60194BB42BFB71A90040C037 /* MovieAPI&SwiftDataTests */,
 				60194BA02BFB71A60040C037 /* Products */,
+				606AD4F82BFB789600294319 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -75,11 +78,11 @@
 		60194BA12BFB71A60040C037 /* MovieAPI&SwiftData */ = {
 			isa = PBXGroup;
 			children = (
+				60194BAA2BFB71A80040C037 /* Preview Content */,
 				60194BA22BFB71A60040C037 /* MovieAPI_SwiftDataApp.swift */,
 				60194BA42BFB71A60040C037 /* ContentView.swift */,
 				60194BA62BFB71A60040C037 /* Item.swift */,
 				60194BA82BFB71A80040C037 /* Assets.xcassets */,
-				60194BAA2BFB71A80040C037 /* Preview Content */,
 			);
 			path = "MovieAPI&SwiftData";
 			sourceTree = "<group>";
@@ -100,6 +103,13 @@
 			path = "MovieAPI&SwiftDataTests";
 			sourceTree = "<group>";
 		};
+		606AD4F82BFB789600294319 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -116,6 +126,9 @@
 			dependencies = (
 			);
 			name = "MovieAPI&SwiftData";
+			packageProductDependencies = (
+				606AD4F92BFB789600294319 /* NetworkService */,
+			);
 			productName = "MovieAPI&SwiftData";
 			productReference = 60194B9F2BFB71A60040C037 /* MovieAPI&SwiftData.app */;
 			productType = "com.apple.product-type.application";
@@ -166,6 +179,9 @@
 				Base,
 			);
 			mainGroup = 60194B962BFB71A60040C037;
+			packageReferences = (
+				60194BCE2BFB74020040C037 /* XCLocalSwiftPackageReference "NetworkService" */,
+			);
 			productRefGroup = 60194BA02BFB71A60040C037 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -473,6 +489,21 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		60194BCE2BFB74020040C037 /* XCLocalSwiftPackageReference "NetworkService" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = NetworkService;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		606AD4F92BFB789600294319 /* NetworkService */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 60194BCE2BFB74020040C037 /* XCLocalSwiftPackageReference "NetworkService" */;
+			productName = NetworkService;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 60194B972BFB71A60040C037 /* Project object */;
 }
