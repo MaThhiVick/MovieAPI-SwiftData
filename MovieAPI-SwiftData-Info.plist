@@ -5,7 +5,7 @@
 	<key>MovieHeader</key>
 	<dict>
 		<key>Authorization</key>
-		<string></string>
+		<string>Bearer </string>
 		<key>accept</key>
 		<string>application/json</string>
 	</dict>
