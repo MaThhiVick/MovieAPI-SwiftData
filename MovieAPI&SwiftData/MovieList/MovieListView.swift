@@ -5,10 +5,13 @@
 //  Created by Matheus Vicente on 20/05/24.
 //
 
+import SwiftData
 import SwiftUI
 import NetworkService
 
 struct MovieListView: View {
+    @Query var movies: [FavoriteMovieID]
+    @Environment(\.modelContext) var context
     @ObservedObject var viewModel: MovieListViewModel
     @State private var index = 0
     private let frameHeight: CGFloat = 500

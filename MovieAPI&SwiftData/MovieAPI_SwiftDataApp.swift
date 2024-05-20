@@ -10,10 +10,19 @@ import SwiftData
 
 @main
 struct MovieAPI_SwiftDataApp: App {
+    let modelContainer: ModelContainer
+      init() {
+        do {
+          modelContainer = try ModelContainer(for: FavoriteMovieID.self)
+        } catch {
+          fatalError("Could not initialize ModelContainer")
+        }
+      }
 
     var body: some Scene {
         WindowGroup {
             MovieListView(viewModel: MovieListViewModel())
+                .modelContainer(modelContainer)
         }
     }
 }

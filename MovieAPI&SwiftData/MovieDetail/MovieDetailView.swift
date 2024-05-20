@@ -5,9 +5,12 @@
 //  Created by Matheus Vicente on 20/05/24.
 //
 
+import SwiftData
 import SwiftUI
 
 struct MovieDetailView: View {
+    @Query var movies: [FavoriteMovieID]
+    @Environment(\.modelContext) var context
     @ObservedObject private var viewModel: MovieDetailViewModel
 
     init(movieInformation: Movie) {
@@ -26,7 +29,7 @@ struct MovieDetailView: View {
                 )
                 .frame(height: 600)
                 .ignoresSafeArea(edges: .top)
-                VStack(alignment: .center, spacing: 8) { // create view Builder
+                VStack(alignment: .center, spacing: 8) {
                     Text(viewModel.movieDetail?.originalTitle ?? "")
                         .multilineTextAlignment(.center)
                         .font(.title)
