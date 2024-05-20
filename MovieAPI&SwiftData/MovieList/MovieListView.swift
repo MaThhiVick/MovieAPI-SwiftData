@@ -18,44 +18,49 @@ struct MovieListView: View {
     }
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: .none) {
-                Text("Top rated")
-                    .font(.largeTitle)
-                    .bold()
-                    .padding(.top, 32)
-                    .padding(.leading, 8)
-                TabView(selection: $index) {
-                    ForEach(viewModel.topRatedList, id: \.self) { movie in
-                        MovieCard(
-                            image: UIImage().dataConvert(
-                                data: movie.imageData
-                            ),
-                            cardSize: .big
-                        )
+        NavigationView {
+            ScrollView {
+                VStack(alignment: .leading, spacing: .none) {
+                    Text("Top rated")
+                        .font(.largeTitle)
+                        .bold()
+                        .padding(.top, 32)
+                        .padding(.leading, 8)
+                    TabView(selection: $index) {
+                            ForEach(viewModel.topRatedList, id: \.self) { movie in
+                                NavigationLink(destination: MovieDetailView(movieInformation: movie)) {
+                                MovieCard(
+                                    image: UIImage().dataConvert(
+                                        data: movie.imageData
+                                    ),
+                                    cardSize: .big
+                                )
+                            }
+                        }
                     }
-                }
-                .padding(.top, -12)
-                .frame(height: frameHeight)
-                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                    .padding(.top, -12)
+                    .frame(height: frameHeight)
+                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
 
-                Carousel(items: $viewModel.popularList, title: "Popular") { index, movie  in
-                    MovieCard(
-                        image: UIImage().dataConvert(data: movie.imageData),
-                        cardSize: .small
-                    )
+                    Carousel(items: $viewModel.popularList, title: "Popular") { index, movie  in
+                        NavigationLink(destination: MovieDetailView(movieInformation: movie)) {
+                            MovieCard(
+                                image: UIImage().dataConvert(data: movie.imageData),
+                                cardSize: .small
+                            )
+                        }
+                    }
+                    .padding(.top, 32)
                 }
-                .padding(.top, 32)
-            }
-            .redacted(reason: $viewModel.isLoading.wrappedValue == true ? .placeholder : [])
-            .onAppear {
-                Task  {
-                    await viewModel.getAllListMovies()
+                .redacted(reason: $viewModel.isLoading.wrappedValue == true ? .placeholder : [])
+                .onAppear {
+                    Task  {
+                        await viewModel.getAllListMovies()
+                    }
                 }
             }
         }
     }
-
 }
 
 #Preview {
