@@ -10,10 +10,10 @@ import SwiftUI
 import NetworkService
 
 struct MovieListView: View {
-    @Query var movies: [FavoriteMovieID]
+    @Query var favoriteMoviesId: [FavoriteMovieID]
     @Environment(\.modelContext) var context
     @ObservedObject var viewModel: MovieListViewModel
-    @State private var index = 0
+    @State private var tabBarPosition = 0
     private let frameHeight: CGFloat = 500
 
     init(viewModel: MovieListViewModel) {
@@ -21,7 +21,7 @@ struct MovieListView: View {
     }
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: .none) {
                     Text("Top rated")
@@ -29,17 +29,23 @@ struct MovieListView: View {
                         .bold()
                         .padding(.top, 32)
                         .padding(.leading, 8)
-                    TabView(selection: $index) {
-                            ForEach(viewModel.topRatedList, id: \.self) { movie in
-                                NavigationLink(destination: MovieDetailView(movieInformation: movie)) {
+                    TabView(selection: $tabBarPosition) {
+                        ForEach(Array(viewModel.topRatedList.enumerated()), id: \.element) { index, movie in
+                            NavigationLink(destination: MovieDetailView(movieInformation: movie)) {
                                 MovieCard(
                                     image: UIImage().dataConvert(
                                         data: movie.imageData
                                     ),
-                                    isFavorite: true,
+                                    isFavorite: movie.isFavorite ?? false,
                                     cardSize: .big
-                                )
-                            }
+                                ) {
+                                    // Adding favorite
+                                    if !(movie.isFavorite ?? false) {
+                                        context.insert(FavoriteMovieID(id: movie.id))
+                                        viewModel.addMovieFavorite(from: &viewModel.topRatedList, at: index)
+                                    }
+                                }
+                            }.tag(index)
                         }
                     }
                     .padding(.top, -12)
@@ -50,9 +56,15 @@ struct MovieListView: View {
                         NavigationLink(destination: MovieDetailView(movieInformation: movie)) {
                             MovieCard(
                                 image: UIImage().dataConvert(data: movie.imageData),
-                                isFavorite: true,
+                                isFavorite: movie.isFavorite ?? false,
                                 cardSize: .small
-                            )
+                            ) {
+                                // Adding favorite
+                                if !(movie.isFavorite ?? false) {
+                                    context.insert(FavoriteMovieID(id: movie.id))
+                                    viewModel.addMovieFavorite(from: &viewModel.popularList, at: index)
+                                }
+                            }
                         }
                     }
                     .padding(.top, 32)
@@ -61,19 +73,19 @@ struct MovieListView: View {
                         NavigationLink(destination: MovieDetailView(movieInformation: movie)) {
                             MovieCard(
                                 image: UIImage().dataConvert(data: movie.imageData),
-                                isFavorite: true,
+                                isFavorite: movie.isFavorite ?? false,
                                 cardSize: .small
-                            )
+                            ) { }
                         }
                     }
                     .padding(.top, 32)
-
                 }
-                .redacted(reason: $viewModel.isLoading.wrappedValue == true ? .placeholder : [])
-                .onAppear {
-                    Task  {
-                        await viewModel.getAllListMovies()
-                    }
+
+            }
+            .redacted(reason: $viewModel.isLoading.wrappedValue == true ? .placeholder : [])
+            .onAppear {
+                Task  {
+                    await viewModel.getAllListMovies(andFavoriteMovies: favoriteMoviesId)
                 }
             }
         }

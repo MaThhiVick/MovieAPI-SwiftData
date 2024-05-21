@@ -16,16 +16,18 @@ struct MovieCard: View {
     @State var image: UIImage
     @State var isFavorite: Bool
     let cardSize: MovieCardType
-
+    let buttonAction: () -> Void
 
     init(
         image: UIImage,
         isFavorite: Bool,
-        cardSize: MovieCardType
+        cardSize: MovieCardType,
+        buttonAction: @escaping () -> Void
     ) {
         self.image = image
         self.isFavorite = isFavorite
         self.cardSize = cardSize
+        self.buttonAction = buttonAction
     }
 
     var body: some View {
@@ -36,6 +38,7 @@ struct MovieCard: View {
                         .resizable()
                     Button(action: {
                         isFavorite.toggle()
+                        buttonAction()
                     }, label: {
                         BookmarkIcon(isFavorite: $isFavorite)
                             .padding(.trailing, 12)
@@ -51,6 +54,7 @@ struct MovieCard: View {
                         .frame(width: 150, height: 170)
                     Button(action: {
                         isFavorite.toggle()
+                        buttonAction()
                     }, label: {
                         BookmarkIcon(isFavorite: $isFavorite)
                     })

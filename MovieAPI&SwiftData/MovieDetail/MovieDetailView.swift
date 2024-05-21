@@ -24,9 +24,15 @@ struct MovieDetailView: View {
                     image: UIImage().dataConvert(
                         data: viewModel.movieInformation.imageData
                     ),
-                    isFavorite: viewModel.isFavoriteMovie,
+                    isFavorite: viewModel.movieInformation.isFavorite ?? false,
                     cardSize: .big
-                )
+                ) {
+                    // Adding favorite
+                    if !(viewModel.movieInformation.isFavorite ?? false) {
+                        context.insert(FavoriteMovieID(id: viewModel.movieInformation.id))
+                        viewModel.movieInformation.isFavorite = true
+                    }
+                }
                 .frame(height: 600)
                 .ignoresSafeArea(edges: .top)
                 VStack(alignment: .center, spacing: 8) {
