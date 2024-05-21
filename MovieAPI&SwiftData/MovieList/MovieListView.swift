@@ -29,7 +29,7 @@ struct MovieListView: View {
                         .padding(.leading, 8)
                     TabView(selection: $tabBarPosition) {
                         ForEach(Array(viewModel.topRatedList.enumerated()), id: \.element) { index, movie in
-                            NavigationLink(destination: MovieDetailView(movieInformation: movie)) {
+                            NavigationLink(destination: MovieDetailView(movieInformation: movie, modelContext: viewModel.modelContext, favoriteMovieInformation: viewModel.favoriteMoviesInformation)) {
                                 MovieCard(
                                     image: UIImage().dataConvert(
                                         data: movie.imageData
@@ -47,7 +47,7 @@ struct MovieListView: View {
                     .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
 
                     Carousel(items: $viewModel.popularList, title: "Popular") { index, movie  in
-                        NavigationLink(destination: MovieDetailView(movieInformation: movie)) {
+                        NavigationLink(destination: MovieDetailView(movieInformation: movie, modelContext: viewModel.modelContext, favoriteMovieInformation: viewModel.favoriteMoviesInformation)) {
                             MovieCard(
                                 image: UIImage().dataConvert(data: movie.imageData),
                                 isFavorite: movie.isFavorite ?? false,
@@ -58,7 +58,7 @@ struct MovieListView: View {
                     .padding(.top, 32)
 
                     Carousel(items: $viewModel.favoritesMovies, title: "Favorite") { index, movie in
-                        NavigationLink(destination: MovieDetailView(movieInformation: movie)) {
+                        NavigationLink(destination: MovieDetailView(movieInformation: movie, modelContext: viewModel.modelContext, favoriteMovieInformation: viewModel.favoriteMoviesInformation)) {
                             MovieCard(
                                 image: UIImage().dataConvert(data: movie.imageData),
                                 isFavorite: movie.isFavorite ?? false,

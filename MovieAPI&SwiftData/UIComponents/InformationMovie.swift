@@ -17,7 +17,7 @@ struct InformationMovie: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: 8) {
             line()
                 .padding(.bottom, 4)
             HStack(alignment: .top, spacing: 4) {
