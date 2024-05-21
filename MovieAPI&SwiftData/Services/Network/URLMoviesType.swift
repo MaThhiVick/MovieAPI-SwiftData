@@ -10,7 +10,7 @@ import Foundation
 enum URLMoviesType {
     case detail(Int)
     case image(String)
-    case list(MovieListPath)
+    case list(MovieListType)
 
     var stringName: String {
         switch self {
@@ -24,7 +24,9 @@ enum URLMoviesType {
     }
 }
 
-enum MovieListPath: String, CaseIterable {
+enum MovieListType: String, CaseIterable {
     case topRated = "top_rated"
     case popular
 }
+
+extension MovieListType: Codable {} 

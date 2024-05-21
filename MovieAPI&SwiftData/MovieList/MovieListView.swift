@@ -10,7 +10,7 @@ import SwiftUI
 import NetworkService
 
 struct MovieListView: View {
-    @Query var favoriteMoviesId: [FavoriteMovieID]
+    @Query var favoriteMoviesId: [FavoriteMovieInformation]
     @Environment(\.modelContext) var context
     @ObservedObject var viewModel: MovieListViewModel
     @State private var tabBarPosition = 0
@@ -39,9 +39,13 @@ struct MovieListView: View {
                                     isFavorite: movie.isFavorite ?? false,
                                     cardSize: .big
                                 ) {
-                                    // Adding favorite
-                                    if !(movie.isFavorite ?? false) {
-                                        context.insert(FavoriteMovieID(id: movie.id))
+                                    if movie.isFavorite ?? false {
+                                        viewModel.removeFavoriteMovie(from: &viewModel.topRatedList, at: index)
+                                        if let objectToDelete = favoriteMoviesId.first(where: { $0.id == movie.id }) {
+                                            context.delete(objectToDelete)
+                                        }
+                                    } else {
+                                        context.insert(FavoriteMovieInformation(id: movie.id, movieType: movie.movieType ?? .topRated))
                                         viewModel.addMovieFavorite(from: &viewModel.topRatedList, at: index)
                                     }
                                 }
@@ -59,9 +63,13 @@ struct MovieListView: View {
                                 isFavorite: movie.isFavorite ?? false,
                                 cardSize: .small
                             ) {
-                                // Adding favorite
-                                if !(movie.isFavorite ?? false) {
-                                    context.insert(FavoriteMovieID(id: movie.id))
+                                if movie.isFavorite ?? false {
+                                    viewModel.removeFavoriteMovie(from: &viewModel.popularList, at: index)
+                                    if let objectToDelete = favoriteMoviesId.first(where: { $0.id == movie.id }) {
+                                        context.delete(objectToDelete)
+                                    }
+                                } else {
+                                    context.insert(FavoriteMovieInformation(id: movie.id, movieType: movie.movieType ?? .topRated))
                                     viewModel.addMovieFavorite(from: &viewModel.popularList, at: index)
                                 }
                             }
@@ -75,7 +83,13 @@ struct MovieListView: View {
                                 image: UIImage().dataConvert(data: movie.imageData),
                                 isFavorite: movie.isFavorite ?? false,
                                 cardSize: .small
-                            ) { }
+                            ) {
+                                viewModel.removeFavoriteMovieBy(id: movie.id, fromList: movie.movieType ?? .popular)
+                                viewModel.favoritesMovies.removeAll(where: { $0.id == movie.id })
+                                if let objectToDelete = favoriteMoviesId.first(where: { $0.id == movie.id }) {
+                                    context.delete(objectToDelete)
+                                }
+                            }
                         }
                     }
                     .padding(.top, 32)

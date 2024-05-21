@@ -46,7 +46,7 @@ final class DefaultURLProvider: URLProvider {
         return nil
     }
 
-    private func defineMovieList(from path: MovieListPath, to url: URL) -> URL? {
+    private func defineMovieList(from path: MovieListType, to url: URL) -> URL? {
         guard var components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
             return nil
         }

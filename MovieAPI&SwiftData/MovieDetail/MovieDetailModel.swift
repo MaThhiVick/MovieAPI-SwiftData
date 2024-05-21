@@ -19,7 +19,7 @@ public struct MovieDetailModel: Decodable {
     let overview: String
     let popularity: Double
     let posterPath: String
-//    let productionCompanies: [ProductionCompany]
+    let productionCompanies: [ProductionCompany]
     let productionCountries: [ProductionCountry]
     let releaseDate: String
     let revenue: Int
@@ -38,7 +38,7 @@ extension MovieDetailModel {
         case adult, backdropPath = "backdrop_path", belongsToCollection = "belongs_to_collection",
              budget, genres, homepage, id, imdbId = "imdb_id", originalLanguage = "original_language",
              originalTitle = "original_title", overview, popularity, posterPath = "poster_path",
-             productionCountries = "production_countries",
+             productionCompanies = "production_companies", productionCountries = "production_countries",
              releaseDate = "release_date", revenue, runtime, spokenLanguages = "spoken_languages",
              status, tagline, title, video, voteAverage = "vote_average", voteCount = "vote_count"
     }

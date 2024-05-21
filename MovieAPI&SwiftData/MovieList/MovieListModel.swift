@@ -47,6 +47,7 @@ struct Movie: Codable, Hashable {
     let voteCount: Int
     var imageData: Data?
     var isFavorite: Bool?
+    var movieType: MovieListType?
 
     enum CodingKeys: String, CodingKey {
         case adult

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 final class MovieListViewModel: ObservableObject {
     let movieProvider: MovieDataProviderProtocol
@@ -22,7 +23,7 @@ final class MovieListViewModel: ObservableObject {
     }
 
     @MainActor
-    func getAllListMovies(andFavoriteMovies idList: [FavoriteMovieID]) async {
+    func getAllListMovies(andFavoriteMovies idList: [FavoriteMovieInformation]) async {
         Task {
             topRatedList = await movieProvider.getMovies(from: .list(.topRated))
             popularList = await movieProvider.getMovies(from: .list(.popular))
@@ -36,13 +37,30 @@ final class MovieListViewModel: ObservableObject {
         favoritesMovies.appendIfNotContains(movieList[index])
     }
 
-    func favoriteMovieSetup(_ idList: [FavoriteMovieID]) {
+    func favoriteMovieSetup(_ idList: [FavoriteMovieInformation]) {
         favoritesMovies = []
         isTheseMovies(&topRatedList, favorite: idList)
         isTheseMovies(&popularList, favorite: idList)
     }
 
-    private func isTheseMovies(_ movies: inout [Movie], favorite: [FavoriteMovieID]) {
+    func removeFavoriteMovie(from movieList: inout [Movie], at index: Int) {
+        movieList[index].isFavorite = false
+        favoritesMovies.removeAll(where: { $0.id == movieList[index].id })
+    }
+
+    func removeFavoriteMovieBy(id: Int, fromList movieType: MovieListType) {
+        if movieType == .popular {
+            for index in popularList.indices where popularList[index].id == id {
+                popularList[index].isFavorite = false
+            }
+        } else {
+            for index in topRatedList.indices where topRatedList[index].id == id {
+                topRatedList[index].isFavorite = false
+            }
+        }
+    }
+
+    private func isTheseMovies(_ movies: inout [Movie], favorite: [FavoriteMovieInformation]) {
         let favoriteMoviesId = Set(favorite.map { $0.id })
 
         for index in movies.indices where favoriteMoviesId.contains(movies[index].id) {

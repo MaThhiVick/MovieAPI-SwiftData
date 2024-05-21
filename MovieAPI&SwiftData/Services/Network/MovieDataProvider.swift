@@ -23,19 +23,26 @@ class MovieDataProvider: MovieDataProviderProtocol {
             return []
         }
 
-        let result = await insertImageData(movieResponse: movieResponse).movies
+        let result = await setupDataOf(movieResponse: movieResponse, fromList: urlMovie).movies
         return result
     }
 
-    private func insertImageData(movieResponse: MovieResponseModel) async -> MovieResponseModel {
-        var result = movieResponse
-        for movie in 0..<result.movies.count {
-            result.movies[movie].imageData = await networkRequest.request(
-                urlMovie: .image(
-                    result.movies[movie].posterPath
+    private func setupDataOf(movieResponse: MovieResponseModel, fromList typeList: URLMoviesType) async -> MovieResponseModel {
+        switch typeList {
+        case .list(let movieListType):
+            var result = movieResponse
+            for index in 0..<result.movies.count {
+                result.movies[index].movieType = movieListType
+                result.movies[index].imageData = await networkRequest.request(
+                    urlMovie: .image(
+                        result.movies[index].posterPath
+                    )
                 )
-            )
+            }
+            return result
+
+        default:
+            return movieResponse
         }
-        return result
     }
 }

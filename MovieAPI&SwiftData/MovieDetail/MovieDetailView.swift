@@ -9,7 +9,7 @@ import SwiftData
 import SwiftUI
 
 struct MovieDetailView: View {
-    @Query var movies: [FavoriteMovieID]
+    @Query var movies: [FavoriteMovieInformation]
     @Environment(\.modelContext) var context
     @ObservedObject private var viewModel: MovieDetailViewModel
 
@@ -29,7 +29,12 @@ struct MovieDetailView: View {
                 ) {
                     // Adding favorite
                     if !(viewModel.movieInformation.isFavorite ?? false) {
-                        context.insert(FavoriteMovieID(id: viewModel.movieInformation.id))
+                        context.insert(
+                            FavoriteMovieInformation(
+                                id: viewModel.movieInformation.id,
+                                movieType: viewModel.movieInformation.movieType ?? .topRated
+                            )
+                        )
                         viewModel.movieInformation.isFavorite = true
                     }
                 }
