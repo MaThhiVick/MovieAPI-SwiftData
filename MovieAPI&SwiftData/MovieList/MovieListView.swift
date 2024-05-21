@@ -22,53 +22,9 @@ struct MovieListView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: .none) {
-                    Text("Top rated")
-                        .font(.largeTitle)
-                        .bold()
-                        .padding(.top, 32)
-                        .padding(.leading, 8)
-                    TabView(selection: $tabBarPosition) {
-                        ForEach(Array(viewModel.topRatedList.enumerated()), id: \.element) { index, movie in
-                            NavigationLink(destination: MovieDetailView(movieInformation: movie, modelContext: viewModel.modelContext, favoriteMovieInformation: viewModel.favoriteMoviesInformation)) {
-                                MovieCard(
-                                    image: UIImage().dataConvert(
-                                        data: movie.imageData
-                                    ),
-                                    isFavorite: movie.isFavorite ?? false,
-                                    cardSize: .big
-                                ) {
-                                    viewModel.favoriteAction(fromMovie: movie, at: index)
-                                }
-                            }.tag(index)
-                        }
-                    }
-                    .padding(.top, -12)
-                    .frame(height: frameHeight)
-                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-
-                    Carousel(items: $viewModel.popularList, title: "Popular") { index, movie  in
-                        NavigationLink(destination: MovieDetailView(movieInformation: movie, modelContext: viewModel.modelContext, favoriteMovieInformation: viewModel.favoriteMoviesInformation)) {
-                            MovieCard(
-                                image: UIImage().dataConvert(data: movie.imageData),
-                                isFavorite: movie.isFavorite ?? false,
-                                cardSize: .small
-                            ) { viewModel.favoriteAction(fromMovie: movie, at: index) }
-                        }
-                    }
-                    .padding(.top, 32)
-
-                    Carousel(items: $viewModel.favoritesMovies, title: "Favorite") { index, movie in
-                        NavigationLink(destination: MovieDetailView(movieInformation: movie, modelContext: viewModel.modelContext, favoriteMovieInformation: viewModel.favoriteMoviesInformation)) {
-                            MovieCard(
-                                image: UIImage().dataConvert(data: movie.imageData),
-                                isFavorite: movie.isFavorite ?? false,
-                                cardSize: .small
-                            ) {
-                                viewModel.favoriteAction(fromMovie: movie, at: index)
-                            }
-                        }
-                    }
-                    .padding(.top, 32)
+                    topRatedSection()
+                    carouselSection(movieList: $viewModel.popularList, title: "Popular")
+                    carouselSection(movieList: $viewModel.favoritesMovies, title: "Favorite movies")
                 }
 
             }
@@ -80,8 +36,51 @@ struct MovieListView: View {
             }
         }
     }
-}
 
-//#Preview {
-//    MovieListView(viewModel: MovieListViewModel())
-//}
+    @ViewBuilder
+    func topRatedSection() -> some View {
+        Text("Top rated")
+            .font(.largeTitle)
+            .bold()
+            .padding(.top, 32)
+            .padding(.leading, 8)
+        TabView(selection: $tabBarPosition) {
+            ForEach(Array(viewModel.topRatedList.enumerated()), id: \.element) { index, movie in
+                NavigationLink(destination: MovieDetailView(movieInformation: movie,
+                                                    modelContext: viewModel.modelContext,
+                                                    favoriteMovieInformation: viewModel.favoriteMoviesInformation)) {
+                    MovieCard(
+                        image: UIImage().dataConvert(
+                            data: movie.imageData
+                        ),
+                        isFavorite: movie.isFavorite ?? false,
+                        cardSize: .big
+                    ) {
+                        viewModel.favoriteAction(fromMovie: movie, at: index)
+                    }
+                }.tag(index)
+            }
+        }
+        .padding(.top, -12)
+        .frame(height: frameHeight)
+        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+    }
+
+    @ViewBuilder
+    func carouselSection(movieList: Binding<[Movie]> , title: String) -> some View {
+        Carousel(items: movieList, title: title) { index, movie in
+            NavigationLink(destination: MovieDetailView(movieInformation: movie,
+                                                modelContext: viewModel.modelContext,
+                                                favoriteMovieInformation: viewModel.favoriteMoviesInformation)) {
+                MovieCard(
+                    image: UIImage().dataConvert(data: movie.imageData),
+                    isFavorite: movie.isFavorite ?? false,
+                    cardSize: .small
+                ) {
+                    viewModel.favoriteAction(fromMovie: movie, at: index)
+                }
+            }
+        }
+        .padding(.top, 32)
+    }
+}

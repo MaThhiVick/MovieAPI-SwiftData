@@ -23,12 +23,12 @@ struct Carousel<Model: Hashable, Content: View>: View {
     }
 
     var body: some View {
-        LazyVStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 8) {
             Text(title)
                 .font(.title)
                 .padding(.leading, 8)
             ScrollView(.horizontal, showsIndicators: false) {
-                LazyHStack(spacing: 5) {
+                HStack(spacing: 5) {
                     ForEach(Array(items.enumerated()), id: \.element) { index, movie in
                         content(index, movie)
                     }

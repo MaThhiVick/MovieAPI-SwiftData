@@ -24,9 +24,7 @@ enum URLMoviesType {
     }
 }
 
-enum MovieListType: String, CaseIterable {
+enum MovieListType: String, CaseIterable, Codable {
     case topRated = "top_rated"
     case popular
 }
-
-extension MovieListType: Codable {} 
