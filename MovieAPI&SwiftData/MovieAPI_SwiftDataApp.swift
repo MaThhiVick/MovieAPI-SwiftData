@@ -21,7 +21,7 @@ struct MovieAPI_SwiftDataApp: App {
 
     var body: some Scene {
         WindowGroup {
-            MovieListView(viewModel: MovieListViewModel())
+            MovieListView(viewModel: MovieListViewModel(modelContext: modelContainer.mainContext))
                 .modelContainer(modelContainer)
         }
     }

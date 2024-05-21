@@ -5,29 +5,35 @@
 //  Created by Matheus Vicente on 20/05/24.
 //
 
-import Foundation
+import SwiftData
 import SwiftUI
 
 final class MovieListViewModel: ObservableObject {
     let movieProvider: MovieDataProviderProtocol
     let networkService: NetworkRequestUseCase
+    @Published var modelContext: ModelContext
+    @Published var favoriteMoviesInformation = [FavoriteMovieInformation]()
     @Published var topRatedList = [Movie]()
     @Published var popularList = [Movie]()
     @Published var favoritesMovies = [Movie]()
     @Published var isLoading = true
 
+
     init(movieProvider: MovieDataProviderProtocol = MovieDataProvider(),
-         networkService: NetworkRequestUseCase = NetworkUseCase()) {
+         networkService: NetworkRequestUseCase = NetworkUseCase(),
+         modelContext: ModelContext) {
         self.movieProvider = movieProvider
         self.networkService = networkService
+        self.modelContext = modelContext
     }
 
     @MainActor
-    func getAllListMovies(andFavoriteMovies idList: [FavoriteMovieInformation]) async {
+    func getAllListMovies() async {
         Task {
             topRatedList = await movieProvider.getMovies(from: .list(.topRated))
             popularList = await movieProvider.getMovies(from: .list(.popular))
-            favoriteMovieSetup(idList)
+            fetchData()
+            favoriteMovieSetup(favoriteMoviesInformation)
             isLoading = false
         }
     }
@@ -47,25 +53,60 @@ final class MovieListViewModel: ObservableObject {
         }
     }
 
-    func addMovieFavorite(from movieList: inout [Movie], at index: Int) {
-        movieList[index].isFavorite = true
-        favoritesMovies.appendIfNotContains(movieList[index])
-    }
-
-    func removeFavoriteMovie(from movieList: inout [Movie], at index: Int) {
-        movieList[index].isFavorite = false
-        favoritesMovies.removeAll(where: { $0.id == movieList[index].id })
-    }
-
-    func removeFavoriteMovieBy(id: Int, fromList movieType: MovieListType) {
-        if movieType == .popular {
-            for index in popularList.indices where popularList[index].id == id {
-                popularList[index].isFavorite = false
+    private func addToFavoriteMovie(movie: Movie, at index: Int) {
+        switch movie.movieType ?? .topRated {
+        case .topRated:
+            for index in topRatedList.indices where topRatedList[index].id == movie.id {
+                topRatedList[index].isFavorite = true
+                favoritesMovies.appendIfNotContains(topRatedList[index])
             }
-        } else {
+        case .popular:
+            for index in popularList.indices where popularList[index].id == movie.id {
+                popularList[index].isFavorite = true
+                favoritesMovies.appendIfNotContains(popularList[index])
+            }
+        }
+    }
+
+    private func removeFavoriteMovieBy(id: Int, fromList movieType: MovieListType) {
+        switch movieType {
+        case .topRated:
             for index in topRatedList.indices where topRatedList[index].id == id {
                 topRatedList[index].isFavorite = false
             }
+        case .popular:
+            for index in popularList.indices where popularList[index].id == id {
+                popularList[index].isFavorite = false
+            }
+        }
+    }
+
+    func favoriteAction(fromMovie movie: Movie, at index: Int) {
+        if movie.isFavorite ?? false {
+            favoritesMovies.removeAll(where: { $0.id == movie.id })
+            removeFavoriteMovieBy(id: movie.id, fromList: movie.movieType ?? . topRated)
+            if let objectToDelete = favoriteMoviesInformation.first(where: {
+                $0.id == movie.id
+            }) {
+                modelContext.delete(objectToDelete)
+            }
+        } else {
+            modelContext.insert(
+                FavoriteMovieInformation(
+                    id: movie.id,
+                    movieType: movie.movieType ?? .topRated
+                )
+            )
+            addToFavoriteMovie(movie: movie, at: index)
+        }
+    }
+
+    private func fetchData() {
+        do {
+            let descriptor = FetchDescriptor<FavoriteMovieInformation>()
+            favoriteMoviesInformation = try modelContext.fetch(descriptor)
+        } catch {
+            print("Fetch failed")
         }
     }
 }
