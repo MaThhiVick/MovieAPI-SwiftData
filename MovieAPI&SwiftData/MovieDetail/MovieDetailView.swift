@@ -27,8 +27,12 @@ struct MovieDetailView: View {
                     isFavorite: viewModel.movieInformation.isFavorite ?? false,
                     cardSize: .big
                 ) {
-                    // Adding favorite
-                    if !(viewModel.movieInformation.isFavorite ?? false) {
+                    if viewModel.movieInformation.isFavorite ?? false {
+                        if let objectToDelete = movies.first(where: { $0.id == viewModel.movieInformation.id }) {
+                            context.delete(objectToDelete)
+                        }
+                        viewModel.movieInformation.isFavorite = false
+                } else {
                         context.insert(
                             FavoriteMovieInformation(
                                 id: viewModel.movieInformation.id,

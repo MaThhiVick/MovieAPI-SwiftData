@@ -32,15 +32,24 @@ final class MovieListViewModel: ObservableObject {
         }
     }
 
-    func addMovieFavorite(from movieList: inout [Movie], at index: Int) {
-        movieList[index].isFavorite = true
-        favoritesMovies.appendIfNotContains(movieList[index])
-    }
-
-    func favoriteMovieSetup(_ idList: [FavoriteMovieInformation]) {
+    private func favoriteMovieSetup(_ idList: [FavoriteMovieInformation]) {
         favoritesMovies = []
         isTheseMovies(&topRatedList, favorite: idList)
         isTheseMovies(&popularList, favorite: idList)
+    }
+
+    private func isTheseMovies(_ movies: inout [Movie], favorite: [FavoriteMovieInformation]) {
+        let favoriteMoviesId = Set(favorite.map { $0.id })
+
+        for index in movies.indices where favoriteMoviesId.contains(movies[index].id) {
+            movies[index].isFavorite = true
+            self.favoritesMovies.appendIfNotContains(movies[index])
+        }
+    }
+
+    func addMovieFavorite(from movieList: inout [Movie], at index: Int) {
+        movieList[index].isFavorite = true
+        favoritesMovies.appendIfNotContains(movieList[index])
     }
 
     func removeFavoriteMovie(from movieList: inout [Movie], at index: Int) {
@@ -57,15 +66,6 @@ final class MovieListViewModel: ObservableObject {
             for index in topRatedList.indices where topRatedList[index].id == id {
                 topRatedList[index].isFavorite = false
             }
-        }
-    }
-
-    private func isTheseMovies(_ movies: inout [Movie], favorite: [FavoriteMovieInformation]) {
-        let favoriteMoviesId = Set(favorite.map { $0.id })
-
-        for index in movies.indices where favoriteMoviesId.contains(movies[index].id) {
-            movies[index].isFavorite = true
-            self.favoritesMovies.appendIfNotContains(movies[index])
         }
     }
 }
