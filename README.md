@@ -18,10 +18,12 @@ The app allows users to save their favorite movies.
 
 ## Configuration
 
-To use the app, you'll need to obtain an Access Token Auth from [TMDb](https://www.themoviedb.org/documentation/api)
-Add it at info.plist where is written <ACCESS_TOKEN_AUTH_HERE> (image)
+To use the app, you'll need to obtain an Access Token Auth from [TMDb](https://www.themoviedb.org/documentation/api).
 
-<img width="1531" alt="Captura de Tela 2024-05-22 às 09 45 05" src="https://github.com/MaThhiVick/MovieAPI-SwiftData/assets/83011790/fd392f7e-1505-40be-a45f-01e93c93e420">
+Add it at info.plist where is written <ACCESS_TOKEN_AUTH_HERE> (image).
+
+<img width="1531" alt="Captura de Tela 2024-05-22 às 11 41 20" src="https://github.com/MaThhiVick/MovieAPI-SwiftData/assets/83011790/6282bbc7-97f2-4896-a972-f17ab18436a0">
+
 
 The Authorization’s value field should be like this:
 
