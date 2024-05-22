@@ -5,7 +5,7 @@
 	<key>MovieHeader</key>
 	<dict>
 		<key>Authorization</key>
-		<string>Bearer &lt;Insert your Access Token Auth&gt;</string>
+		<string>Bearer &lt;ACCESS_TOKEN_AUTH_HERE&gt;</string>
 		<key>accept</key>
 		<string>application/json</string>
 	</dict>
