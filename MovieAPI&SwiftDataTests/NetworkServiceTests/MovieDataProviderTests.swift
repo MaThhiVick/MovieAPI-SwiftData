@@ -23,7 +23,7 @@ final class MovieDataProviderTests: XCTestCase {
     }
 
     func testGetMovie_successfulReturnFromNetwork_shouldReturnMovieResponse() async {
-        let result = await sut.getMovies(from: .list(.popular))
+        let result = await sut.getMovies(from: .list(.topRated))
         XCTAssertEqual(result, MovieResponseModel.getMovieResponse().movies)
     }
 

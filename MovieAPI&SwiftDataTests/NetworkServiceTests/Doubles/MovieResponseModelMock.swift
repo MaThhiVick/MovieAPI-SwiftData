@@ -37,7 +37,7 @@ extension MovieResponseModel: Equatable {
                     voteAverage: 7.8,
                     voteCount: 100,
                     imageData: nil,
-                    movieType: .popular
+                    movieType: .topRated
                 )
             ],
             totalPages: 2,
