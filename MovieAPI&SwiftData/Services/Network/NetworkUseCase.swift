@@ -33,7 +33,6 @@ final class NetworkUseCase: NetworkRequestUseCase {
             }
             return try JSONDecoder().decode(T.self, from: data)
         } catch {
-            print("Erro aqui", error)
             return nil
         }
     }

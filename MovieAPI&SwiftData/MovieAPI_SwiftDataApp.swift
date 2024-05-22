@@ -21,8 +21,12 @@ struct MovieAPI_SwiftDataApp: App {
 
     var body: some Scene {
         WindowGroup {
-            MovieListView(viewModel: MovieListViewModel(modelContext: modelContainer.mainContext))
-                .modelContainer(modelContainer)
+            if NSClassFromString("XCTestCase") != nil {
+                EmptyView()
+            } else {
+                MovieListView(viewModel: MovieListViewModel(modelContext: modelContainer.mainContext))
+                    .modelContainer(modelContainer)
+            }
         }
     }
 }
