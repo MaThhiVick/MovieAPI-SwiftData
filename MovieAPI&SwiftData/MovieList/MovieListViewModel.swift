@@ -10,7 +10,6 @@ import SwiftUI
 
 final class MovieListViewModel: ObservableObject {
     let movieProvider: MovieDataProviderProtocol
-    let networkService: NetworkRequestUseCase
     @Published var modelContext: ModelContext
     @Published var favoriteMoviesInformation = [FavoriteMovieInformation]()
     @Published var topRatedList = [Movie]()
@@ -20,22 +19,18 @@ final class MovieListViewModel: ObservableObject {
 
 
     init(movieProvider: MovieDataProviderProtocol = MovieDataProvider(),
-         networkService: NetworkRequestUseCase = NetworkUseCase(),
          modelContext: ModelContext) {
         self.movieProvider = movieProvider
-        self.networkService = networkService
         self.modelContext = modelContext
     }
 
     @MainActor
     func getAllListMovies() async {
-        Task {
             topRatedList = await movieProvider.getMovies(from: .list(.topRated))
             popularList = await movieProvider.getMovies(from: .list(.popular))
             fetchData()
             favoriteMovieSetup(favoriteMoviesInformation)
             isLoading = false
-        }
     }
 
     private func favoriteMovieSetup(_ idList: [FavoriteMovieInformation]) {

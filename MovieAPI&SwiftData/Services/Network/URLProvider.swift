@@ -69,7 +69,7 @@ final class DefaultURLProvider: URLProvider {
     }
 
     private func getDefaultURL(fromMovie urlType: URLMoviesType) -> URL? {
-        guard let urlBundle = bundle.object(forInfoDictionaryKey: "URLMovies") as? [String: String] else {
+        guard let urlBundle = bundle.object(forInfoDictionaryKey: urlMovies) as? [String: String] else {
             return nil
         }
 

@@ -16,7 +16,6 @@ class MovieDetailViewModel: ObservableObject {
     @Published var modelContext: ModelContext
     @Published var favoriteMoviesInformation = [FavoriteMovieInformation]()
 
-
     init(
         networkService: NetworkRequestUseCase = NetworkUseCase(),
         movieInformation: Movie,
