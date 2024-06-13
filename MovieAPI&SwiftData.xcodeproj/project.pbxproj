@@ -115,6 +115,8 @@
 		606AD50C2BFB827600294319 /* MovieDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDataProvider.swift; sourceTree = "<group>"; };
 		606AD50F2BFB832A00294319 /* MovieCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCard.swift; sourceTree = "<group>"; };
 		606AD5122BFB83AE00294319 /* UIImage+data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+data.swift"; sourceTree = "<group>"; };
+		608584E52C1B38D70024AFDF /* MovieAPI&SwiftData.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "MovieAPI&SwiftData.entitlements"; sourceTree = "<group>"; };
+		608584E62C1B3A210024AFDF /* FavoriteMoviesWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FavoriteMoviesWidgetExtension.entitlements; sourceTree = "<group>"; };
 		60C1AB8A2C1B1D3E00E2A4B6 /* FavoriteMoviesWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FavoriteMoviesWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		60C1AB8B2C1B1D3E00E2A4B6 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		60C1AB8D2C1B1D3E00E2A4B6 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -169,6 +171,7 @@
 		60194B962BFB71A60040C037 = {
 			isa = PBXGroup;
 			children = (
+				608584E62C1B3A210024AFDF /* FavoriteMoviesWidgetExtension.entitlements */,
 				60194BA12BFB71A60040C037 /* MovieAPI&SwiftData */,
 				60194BB42BFB71A90040C037 /* MovieAPI&SwiftDataTests */,
 				60C1AB8F2C1B1D3E00E2A4B6 /* FavoriteMoviesWidget */,
@@ -190,6 +193,7 @@
 		60194BA12BFB71A60040C037 /* MovieAPI&SwiftData */ = {
 			isa = PBXGroup;
 			children = (
+				608584E52C1B38D70024AFDF /* MovieAPI&SwiftData.entitlements */,
 				6060FA992BFB87CA008B9EF0 /* MovieAPI-SwiftData-Info.plist */,
 				60194BA22BFB71A60040C037 /* MovieAPI_SwiftDataApp.swift */,
 				606AD5112BFB838C00294319 /* Extensions */,
@@ -651,10 +655,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "MovieAPI&SwiftData/MovieAPI&SwiftData.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MovieAPI&SwiftData/Preview Content\"";
-				DEVELOPMENT_TEAM = STUL88546G;
+				DEVELOPMENT_TEAM = FHMJUU9NHT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "MovieAPI-SwiftData-Info.plist";
@@ -682,10 +687,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "MovieAPI&SwiftData/MovieAPI&SwiftData.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MovieAPI&SwiftData/Preview Content\"";
-				DEVELOPMENT_TEAM = STUL88546G;
+				DEVELOPMENT_TEAM = FHMJUU9NHT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "MovieAPI-SwiftData-Info.plist";
@@ -714,7 +720,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = STUL88546G;
+				DEVELOPMENT_TEAM = FHMJUU9NHT;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				MARKETING_VERSION = 1.0;
@@ -734,7 +740,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = STUL88546G;
+				DEVELOPMENT_TEAM = FHMJUU9NHT;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				MARKETING_VERSION = 1.0;
@@ -752,9 +758,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = FavoriteMoviesWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = STUL88546G;
+				DEVELOPMENT_TEAM = FHMJUU9NHT;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FavoriteMoviesWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = FavoriteMoviesWidget;
@@ -780,9 +787,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = FavoriteMoviesWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = STUL88546G;
+				DEVELOPMENT_TEAM = FHMJUU9NHT;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FavoriteMoviesWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = FavoriteMoviesWidget;
