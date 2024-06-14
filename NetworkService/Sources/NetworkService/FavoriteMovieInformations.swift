@@ -10,13 +10,13 @@ import NetworkService
 import SwiftUI
 
 @Model
-class FavoriteMovieInformations: Hashable {
-    @Attribute(.unique) let id: Int
+public class FavoriteMovieInformations: Hashable {
+    @Attribute(.unique) public let id: Int
     var movieType: MovieListType
-    var title: String
-    var imageData: Data
+    public var title: String
+    public var imageData: Data
 
-    init(id: Int, movieType: MovieListType, title: String, imageData: Data) {
+    public init(id: Int, movieType: MovieListType, title: String, imageData: Data) {
         self.id = id
         self.movieType = movieType
         self.title = title

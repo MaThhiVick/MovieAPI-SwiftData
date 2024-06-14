@@ -8,6 +8,7 @@
 import SwiftData
 import NetworkService
 import SwiftUI
+import WidgetKit
 
 final class MovieListViewModel: ObservableObject {
     let movieProvider: MovieDataProviderProtocol
@@ -77,6 +78,10 @@ final class MovieListViewModel: ObservableObject {
     }
 
     func favoriteAction(fromMovie movie: Movie, at index: Int) {
+        defer {
+//            WidgetCenter.shared.reloadTimelines(ofKind: "FavoriteMoviesWidget")
+            WidgetCenter.shared.reloadAllTimelines() // change
+        }
         if movie.isFavorite ?? false {
             favoritesMovies.removeAll(where: { $0.id == movie.id })
             removeFavoriteMovieBy(id: movie.id, fromList: movie.movieType ?? . topRated)

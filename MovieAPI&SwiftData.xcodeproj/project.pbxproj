@@ -27,16 +27,15 @@
 		6060FAA22BFB9563008B9EF0 /* MovieDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6060FAA12BFB9563008B9EF0 /* MovieDetailViewModel.swift */; };
 		6060FAA42BFB95AA008B9EF0 /* MovieDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6060FAA32BFB95AA008B9EF0 /* MovieDetailModel.swift */; };
 		6060FAA62BFBAEAB008B9EF0 /* BookmarkIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6060FAA52BFBAEAB008B9EF0 /* BookmarkIcon.swift */; };
-		6060FAA82BFBB3F2008B9EF0 /* FavoriteMovieInformations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6060FAA72BFBB3F2008B9EF0 /* FavoriteMovieInformations.swift */; };
 		6060FAAA2BFBB6C9008B9EF0 /* AppendIfNotContains.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6060FAA92BFBB6C9008B9EF0 /* AppendIfNotContains.swift */; };
 		606AD4FA2BFB789600294319 /* NetworkService in Frameworks */ = {isa = PBXBuildFile; productRef = 606AD4F92BFB789600294319 /* NetworkService */; };
 		606AD5092BFB81D600294319 /* MovieListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606AD5082BFB81D600294319 /* MovieListViewModel.swift */; };
 		606AD5102BFB832A00294319 /* MovieCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606AD50F2BFB832A00294319 /* MovieCard.swift */; };
 		606AD5132BFB83AE00294319 /* UIImage+data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606AD5122BFB83AE00294319 /* UIImage+data.swift */; };
+		607F50FD2C1C7AF000514F98 /* NetworkService in Frameworks */ = {isa = PBXBuildFile; productRef = 607F50FC2C1C7AF000514F98 /* NetworkService */; };
 		60C1AB8C2C1B1D3E00E2A4B6 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60C1AB8B2C1B1D3E00E2A4B6 /* WidgetKit.framework */; };
 		60C1AB8E2C1B1D3E00E2A4B6 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60C1AB8D2C1B1D3E00E2A4B6 /* SwiftUI.framework */; };
 		60C1AB912C1B1D3E00E2A4B6 /* FavoriteMoviesWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AB902C1B1D3E00E2A4B6 /* FavoriteMoviesWidgetBundle.swift */; };
-		60C1AB932C1B1D3E00E2A4B6 /* FavoriteMoviesWidgetLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AB922C1B1D3E00E2A4B6 /* FavoriteMoviesWidgetLiveActivity.swift */; };
 		60C1AB952C1B1D3E00E2A4B6 /* FavoriteMoviesWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AB942C1B1D3E00E2A4B6 /* FavoriteMoviesWidget.swift */; };
 		60C1AB972C1B1D3E00E2A4B6 /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AB962C1B1D3E00E2A4B6 /* AppIntent.swift */; };
 		60C1AB992C1B1D4000E2A4B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60C1AB982C1B1D4000E2A4B6 /* Assets.xcassets */; };
@@ -98,7 +97,6 @@
 		6060FAA12BFB9563008B9EF0 /* MovieDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewModel.swift; sourceTree = "<group>"; };
 		6060FAA32BFB95AA008B9EF0 /* MovieDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailModel.swift; sourceTree = "<group>"; };
 		6060FAA52BFBAEAB008B9EF0 /* BookmarkIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkIcon.swift; sourceTree = "<group>"; };
-		6060FAA72BFBB3F2008B9EF0 /* FavoriteMovieInformations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMovieInformations.swift; sourceTree = "<group>"; };
 		6060FAA92BFBB6C9008B9EF0 /* AppendIfNotContains.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppendIfNotContains.swift; sourceTree = "<group>"; };
 		606AD5082BFB81D600294319 /* MovieListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListViewModel.swift; sourceTree = "<group>"; };
 		606AD50F2BFB832A00294319 /* MovieCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCard.swift; sourceTree = "<group>"; };
@@ -109,7 +107,6 @@
 		60C1AB8B2C1B1D3E00E2A4B6 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		60C1AB8D2C1B1D3E00E2A4B6 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		60C1AB902C1B1D3E00E2A4B6 /* FavoriteMoviesWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMoviesWidgetBundle.swift; sourceTree = "<group>"; };
-		60C1AB922C1B1D3E00E2A4B6 /* FavoriteMoviesWidgetLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMoviesWidgetLiveActivity.swift; sourceTree = "<group>"; };
 		60C1AB942C1B1D3E00E2A4B6 /* FavoriteMoviesWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMoviesWidget.swift; sourceTree = "<group>"; };
 		60C1AB962C1B1D3E00E2A4B6 /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
 		60C1AB982C1B1D4000E2A4B6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -138,6 +135,7 @@
 			files = (
 				60C1AB8E2C1B1D3E00E2A4B6 /* SwiftUI.framework in Frameworks */,
 				60C1AB8C2C1B1D3E00E2A4B6 /* WidgetKit.framework in Frameworks */,
+				607F50FD2C1C7AF000514F98 /* NetworkService in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,7 +236,6 @@
 				6060FA9D2BFB9430008B9EF0 /* MovieDetailView.swift */,
 				6060FAA12BFB9563008B9EF0 /* MovieDetailViewModel.swift */,
 				6060FAA32BFB95AA008B9EF0 /* MovieDetailModel.swift */,
-				6060FAA72BFBB3F2008B9EF0 /* FavoriteMovieInformations.swift */,
 			);
 			path = MovieDetail;
 			sourceTree = "<group>";
@@ -301,7 +298,6 @@
 			children = (
 				60C1AB902C1B1D3E00E2A4B6 /* FavoriteMoviesWidgetBundle.swift */,
 				60C1AB942C1B1D3E00E2A4B6 /* FavoriteMoviesWidget.swift */,
-				60C1AB922C1B1D3E00E2A4B6 /* FavoriteMoviesWidgetLiveActivity.swift */,
 				60C1AB962C1B1D3E00E2A4B6 /* AppIntent.swift */,
 				60C1AB982C1B1D4000E2A4B6 /* Assets.xcassets */,
 				60C1AB9A2C1B1D4000E2A4B6 /* Info.plist */,
@@ -365,6 +361,9 @@
 			dependencies = (
 			);
 			name = FavoriteMoviesWidgetExtension;
+			packageProductDependencies = (
+				607F50FC2C1C7AF000514F98 /* NetworkService */,
+			);
 			productName = FavoriteMoviesWidgetExtension;
 			productReference = 60C1AB8A2C1B1D3E00E2A4B6 /* FavoriteMoviesWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -449,7 +448,6 @@
 				606AD5102BFB832A00294319 /* MovieCard.swift in Sources */,
 				6060FA9B2BFB8D78008B9EF0 /* Carousel.swift in Sources */,
 				60194BA52BFB71A60040C037 /* MovieListView.swift in Sources */,
-				6060FAA82BFBB3F2008B9EF0 /* FavoriteMovieInformations.swift in Sources */,
 				6060FAAA2BFBB6C9008B9EF0 /* AppendIfNotContains.swift in Sources */,
 				6060FAA62BFBAEAB008B9EF0 /* BookmarkIcon.swift in Sources */,
 				6060FAA42BFB95AA008B9EF0 /* MovieDetailModel.swift in Sources */,
@@ -486,7 +484,6 @@
 				60C1AB912C1B1D3E00E2A4B6 /* FavoriteMoviesWidgetBundle.swift in Sources */,
 				60C1AB972C1B1D3E00E2A4B6 /* AppIntent.swift in Sources */,
 				60C1AB952C1B1D3E00E2A4B6 /* FavoriteMoviesWidget.swift in Sources */,
-				60C1AB932C1B1D3E00E2A4B6 /* FavoriteMoviesWidgetLiveActivity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -837,6 +834,11 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		606AD4F92BFB789600294319 /* NetworkService */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 60194BCE2BFB74020040C037 /* XCLocalSwiftPackageReference "NetworkService" */;
+			productName = NetworkService;
+		};
+		607F50FC2C1C7AF000514F98 /* NetworkService */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 60194BCE2BFB74020040C037 /* XCLocalSwiftPackageReference "NetworkService" */;
 			productName = NetworkService;

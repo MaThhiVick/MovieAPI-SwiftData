@@ -7,8 +7,23 @@
 
 import WidgetKit
 import SwiftUI
+import NetworkService
+import SwiftData
 
 struct Provider: AppIntentTimelineProvider {
+//    var sharedModelContainer: ModelContainer = { // Note that we create and assign this value;
+//        let schema = Schema([FavoriteMovieInformations.self])        // it is not a computed property.
+//        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+//
+//        do {
+//          return try ModelContainer(for: schema, configurations: [modelConfiguration])
+//        } catch {
+//          fatalError("Could not create ModelContainer: \(error)")
+//        }
+//      }()
+
+//    var modelContext: ModelContext
+
     func placeholder(in context: Context) -> MovieEntry {
         MovieEntry(date: Date())
     }
@@ -39,20 +54,15 @@ struct MovieEntry: TimelineEntry {
 }
 
 struct FavoriteMoviesWidgetEntryView : View {
+    @Environment(\.modelContext) var context
+    @Query var movies: [FavoriteMovieInformations]
     var entry: Provider.Entry
 
     var body: some View {
         ZStack {
-            Image(uiImage: entry.image!)
+            Image(uiImage: UIImage().dataConvert(data: movies.last!.imageData))
                 .resizable()
-                .scaledToFill()
-
-            Text(entry.title)
-                .bold()
-                .foregroundColor(.yellow)
-                .shadow(radius: 3)
-                .padding(.top, 100)
-                .padding(.trailing, 90)
+                .scaleEffect(1.3)
         }
     }
 }
@@ -60,9 +70,22 @@ struct FavoriteMoviesWidgetEntryView : View {
 struct FavoriteMoviesWidget: Widget {
     let kind: String = "FavoriteMoviesWidget"
 
+    let modelContainer: ModelContainer
+      init() {
+        do {
+          modelContainer = try ModelContainer(for: FavoriteMovieInformations.self)
+        } catch {
+          fatalError("Could not initialize ModelContainer")
+        }
+      }
+
     var body: some WidgetConfiguration {
-        AppIntentConfiguration(kind: kind, provider: Provider()) { entry in
+        AppIntentConfiguration(
+            kind: kind,
+            provider: Provider()
+        ) { entry in
             FavoriteMoviesWidgetEntryView(entry: entry)
+                .modelContainer(modelContainer)
         }
         .configurationDisplayName("Favorite Movies")
         .description("Shows your favorite movies")
@@ -70,8 +93,17 @@ struct FavoriteMoviesWidget: Widget {
     }
 }
 
-#Preview(as: .systemSmall) {
-    FavoriteMoviesWidget()
-} timeline: {
-    MovieEntry(date: .now)
+extension UIImage {
+    func dataConvert(data: Data?) -> UIImage {
+        guard let data, let uiImage = UIImage(data: data) else {
+            return UIImage(systemName: "photo")!
+        }
+        return uiImage
+    }
 }
+
+//#Preview(as: .systemSmall) {
+//    FavoriteMoviesWidget()
+//} timeline: {
+//    MovieEntry(date: .now)
+//}

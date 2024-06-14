@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import NetworkService
 
 @main
 struct MovieAPI_SwiftDataApp: App {
