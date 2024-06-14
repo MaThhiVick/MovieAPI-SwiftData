@@ -6,17 +6,17 @@
 //
 
 import SwiftData
+import NetworkService
 import SwiftUI
 
 final class MovieListViewModel: ObservableObject {
     let movieProvider: MovieDataProviderProtocol
     @Published var modelContext: ModelContext
-    @Published var favoriteMoviesInformation = [FavoriteMovieInformation]()
+    @Published var favoriteMoviesInformation = [FavoriteMovieInformations]()
     @Published var topRatedList = [Movie]()
     @Published var popularList = [Movie]()
     @Published var favoritesMovies = [Movie]()
     @Published var isLoading = true
-
 
     init(movieProvider: MovieDataProviderProtocol = MovieDataProvider(),
          modelContext: ModelContext) {
@@ -33,13 +33,13 @@ final class MovieListViewModel: ObservableObject {
             isLoading = false
     }
 
-    private func favoriteMovieSetup(_ idList: [FavoriteMovieInformation]) {
+    private func favoriteMovieSetup(_ idList: [FavoriteMovieInformations]) {
         favoritesMovies = []
         isTheseMovies(&topRatedList, favorite: idList)
         isTheseMovies(&popularList, favorite: idList)
     }
 
-    private func isTheseMovies(_ movies: inout [Movie], favorite: [FavoriteMovieInformation]) {
+    private func isTheseMovies(_ movies: inout [Movie], favorite: [FavoriteMovieInformations]) {
         let favoriteMoviesId = Set(favorite.map { $0.id })
 
         for index in movies.indices where favoriteMoviesId.contains(movies[index].id) {
@@ -87,9 +87,11 @@ final class MovieListViewModel: ObservableObject {
             }
         } else {
             modelContext.insert(
-                FavoriteMovieInformation(
+                FavoriteMovieInformations(
                     id: movie.id,
-                    movieType: movie.movieType ?? .topRated
+                    movieType: movie.movieType ?? .topRated,
+                    title: movie.title,
+                    imageData: movie.imageData ?? Data()
                 )
             )
             addToFavoriteMovie(movie: movie, at: index)
@@ -98,7 +100,7 @@ final class MovieListViewModel: ObservableObject {
 
     private func fetchData() {
         do {
-            let descriptor = FetchDescriptor<FavoriteMovieInformation>()
+            let descriptor = FetchDescriptor<FavoriteMovieInformations>()
             favoriteMoviesInformation = try modelContext.fetch(descriptor)
         } catch {
             print("Fetch failed")

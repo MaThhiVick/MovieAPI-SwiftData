@@ -7,18 +7,18 @@
 
 import Foundation
 
-protocol MovieDataProviderProtocol {
+public protocol MovieDataProviderProtocol {
     func getMovies(from urlMovie: URLMoviesType) async -> [Movie]
 }
 
-class MovieDataProvider: MovieDataProviderProtocol {
+public class MovieDataProvider: MovieDataProviderProtocol {
     let networkRequest: NetworkRequestUseCase
 
-    init(networkRequest: NetworkRequestUseCase = NetworkUseCase()) {
+    public init(networkRequest: NetworkRequestUseCase = NetworkUseCase()) {
         self.networkRequest = networkRequest
     }
 
-    func getMovies(from urlMovie: URLMoviesType) async -> [Movie] {
+    public func getMovies(from urlMovie: URLMoviesType) async -> [Movie] {
         guard let movieResponse: MovieResponseModel = await networkRequest.request(urlMovie: urlMovie) else {
             return []
         }

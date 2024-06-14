@@ -30,24 +30,24 @@ struct MovieResponseModel: Codable {
 }
 
 // MARK: - Movie
-struct Movie: Codable, Hashable {
+public struct Movie: Codable, Hashable {
     let adult: Bool
     let backdropPath: String
     let genreIDs: [Int]
-    let id: Int
+    public let id: Int
     let originalLanguage: String
     let originalTitle: String
     let overview: String
     let popularity: Double
     let posterPath: String
     let releaseDate: String
-    let title: String
+    public let title: String
     let video: Bool
     let voteAverage: Double
     let voteCount: Int
-    var imageData: Data?
-    var isFavorite: Bool?
-    var movieType: MovieListType?
+    public var imageData: Data?
+    public var isFavorite: Bool?
+    public var movieType: MovieListType?
 
     enum CodingKeys: String, CodingKey {
         case adult

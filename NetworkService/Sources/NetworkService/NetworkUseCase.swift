@@ -8,21 +8,21 @@
 import Foundation
 import NetworkService
 
-protocol NetworkRequestUseCase {
+public protocol NetworkRequestUseCase {
     func request<T: Decodable>(urlMovie: URLMoviesType) async -> T?
 }
 
-final class NetworkUseCase: NetworkRequestUseCase {
+final public class NetworkUseCase: NetworkRequestUseCase {
     let urlProvider: URLProvider
     let networkService: NetworkRequesting
-    
-    init(urlProvider: URLProvider = DefaultURLProvider(),
-         networkService: NetworkRequesting = NetworkService(headers: DefaultURLProvider().getNetworkHeaders())) {
+
+    public init(urlProvider: URLProvider = DefaultURLProvider(),
+                networkService: NetworkRequesting = NetworkService(headers: DefaultURLProvider().getNetworkHeaders())) {
         self.urlProvider = urlProvider
         self.networkService = networkService
     }
     
-    func request<T: Decodable>(urlMovie: URLMoviesType) async -> T? {
+    public func request<T: Decodable>(urlMovie: URLMoviesType) async -> T? {
         do {
             guard let url = urlProvider.getURLMovie(from: urlMovie) else {
                 return nil

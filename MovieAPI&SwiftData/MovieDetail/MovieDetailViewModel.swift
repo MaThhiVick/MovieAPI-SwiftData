@@ -6,6 +6,7 @@
 //
 
 import SwiftData
+import NetworkService
 import SwiftUI
 
 class MovieDetailViewModel: ObservableObject {
@@ -14,13 +15,13 @@ class MovieDetailViewModel: ObservableObject {
     @Published var movieDetail: MovieDetailModel?
     @Published var isLoading = true
     @Published var modelContext: ModelContext
-    @Published var favoriteMoviesInformation = [FavoriteMovieInformation]()
+    @Published var favoriteMoviesInformation = [FavoriteMovieInformations]()
 
     init(
         networkService: NetworkRequestUseCase = NetworkUseCase(),
         movieInformation: Movie,
         modelContext: ModelContext,
-        favoriteMoviesInformation: [FavoriteMovieInformation]
+        favoriteMoviesInformation: [FavoriteMovieInformations]
     ) {
         self.networkService = networkService
         self.movieInformation = movieInformation
@@ -46,9 +47,11 @@ class MovieDetailViewModel: ObservableObject {
         } else {
             movieInformation.isFavorite = true
             modelContext.insert(
-                FavoriteMovieInformation(
+                FavoriteMovieInformations(
                     id: movieInformation.id,
-                    movieType: movieInformation.movieType ?? .topRated
+                    movieType: movieInformation.movieType ?? .topRated,
+                    title: movieInformation.title,
+                    imageData: movieInformation.imageData ?? Data()
                 )
             )
         }

@@ -13,7 +13,7 @@ struct MovieAPI_SwiftDataApp: App {
     let modelContainer: ModelContainer
       init() {
         do {
-          modelContainer = try ModelContainer(for: FavoriteMovieInformation.self)
+          modelContainer = try ModelContainer(for: FavoriteMovieInformations.self)
         } catch {
           fatalError("Could not initialize ModelContainer")
         }

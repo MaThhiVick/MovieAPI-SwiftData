@@ -6,16 +6,17 @@
 //
 
 import SwiftData
+import NetworkService
 import SwiftUI
 
 struct MovieDetailView: View {
-    @Query var movies: [FavoriteMovieInformation]
+    @Query var movies: [FavoriteMovieInformations]
     @ObservedObject private var viewModel: MovieDetailViewModel
 
     init(
         movieInformation: Movie,
         modelContext: ModelContext,
-        favoriteMovieInformation: [FavoriteMovieInformation]
+        favoriteMovieInformation: [FavoriteMovieInformations]
     ) {
         viewModel = MovieDetailViewModel(
             movieInformation: movieInformation,

@@ -33,7 +33,7 @@ final class MovieListViewModelTests: XCTestCase {
 
     func setupModelContext() throws -> ModelContainer {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
-        return try ModelContainer(for: FavoriteMovieInformation.self, configurations: config)
+        return try ModelContainer(for: FavoriteMovieInformations.self, configurations: config)
     }
 
     @MainActor

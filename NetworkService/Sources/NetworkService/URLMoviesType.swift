@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum URLMoviesType {
+public enum URLMoviesType {
     case detail(Int)
     case image(String)
     case list(MovieListType)
@@ -24,7 +24,7 @@ enum URLMoviesType {
     }
 }
 
-enum MovieListType: String, CaseIterable, Codable {
+public enum MovieListType: String, CaseIterable, Codable {
     case topRated = "top_rated"
     case popular
 }

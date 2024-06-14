@@ -7,17 +7,17 @@
 
 import Foundation
 
-protocol URLProvider {
+public protocol URLProvider {
     func getURLMovie(from urlType: URLMoviesType) -> URL?
     func getNetworkHeaders() -> [String: String]
 }
 
-final class DefaultURLProvider: URLProvider {
+final public class DefaultURLProvider: URLProvider {
     let movieHeader: String
     let urlMovies: String
     let bundle: Bundle
 
-    init(movieHeader: String = NetworkConstants.movieHeader,
+    public init(movieHeader: String = NetworkConstants.movieHeader,
          urlMovies: String = NetworkConstants.urlMovies,
          bundle: Bundle = Bundle.main) {
         self.movieHeader = movieHeader
@@ -25,14 +25,14 @@ final class DefaultURLProvider: URLProvider {
         self.bundle = bundle
     }
 
-    func getNetworkHeaders() -> [String: String] {
+    public func getNetworkHeaders() -> [String: String] {
         guard let header = bundle.object(forInfoDictionaryKey: movieHeader) as? [String: String] else {
             return [:]
         }
         return header
     }
 
-    func getURLMovie(from urlType: URLMoviesType) -> URL? {
+    public func getURLMovie(from urlType: URLMoviesType) -> URL? {
         if let defaultUrl = getDefaultURL(fromMovie: urlType) {
             switch urlType {
             case .detail(let id):
