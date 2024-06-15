@@ -6,7 +6,7 @@
 //
 
 import SwiftData
-import NetworkService
+import Common
 import SwiftUI
 
 struct MovieDetailView: View {

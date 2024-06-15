@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import NetworkService
 
 public protocol NetworkRequestUseCase {
     func request<T: Decodable>(urlMovie: URLMoviesType) async -> T?

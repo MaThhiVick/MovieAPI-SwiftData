@@ -7,7 +7,7 @@
 
 import SwiftData
 import SwiftUI
-import NetworkService
+import Common
 
 struct MovieListView: View {
     @ObservedObject var viewModel: MovieListViewModel

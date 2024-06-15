@@ -8,7 +8,7 @@
 import WidgetKit
 import SwiftUI
 import SwiftData
-import NetworkService
+import Common
 
 @main
 struct FavoriteMoviesWidgetBundle: WidgetBundle {

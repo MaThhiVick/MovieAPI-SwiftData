@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SwiftData
-import NetworkService
+import class Common.FavoriteMovieInformations
 
 @main
 struct MovieAPI_SwiftDataApp: App {

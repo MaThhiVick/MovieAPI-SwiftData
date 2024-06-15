@@ -7,7 +7,7 @@
 
 import WidgetKit
 import SwiftUI
-import NetworkService
+import Common
 import SwiftData
 
 struct Provider: AppIntentTimelineProvider {

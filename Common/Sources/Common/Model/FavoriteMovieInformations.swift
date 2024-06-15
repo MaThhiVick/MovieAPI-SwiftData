@@ -6,7 +6,6 @@
 //
 
 import SwiftData
-import NetworkService
 import Foundation
 
 @Model

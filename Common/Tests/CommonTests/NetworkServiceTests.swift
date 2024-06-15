@@ -1,5 +1,5 @@
 import XCTest
-@testable import NetworkService
+@testable import Common
 
 class NetworkServiceTests: XCTestCase {
     var networkService: NetworkService!
