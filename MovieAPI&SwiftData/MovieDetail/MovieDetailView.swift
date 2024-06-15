@@ -10,7 +10,6 @@ import NetworkService
 import SwiftUI
 
 struct MovieDetailView: View {
-    @Query var movies: [FavoriteMovieInformations]
     @ObservedObject private var viewModel: MovieDetailViewModel
 
     init(

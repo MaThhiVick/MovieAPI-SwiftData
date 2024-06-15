@@ -11,19 +11,6 @@ import NetworkService
 import SwiftData
 
 struct Provider: AppIntentTimelineProvider {
-//    var sharedModelContainer: ModelContainer = { // Note that we create and assign this value;
-//        let schema = Schema([FavoriteMovieInformations.self])        // it is not a computed property.
-//        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-//
-//        do {
-//          return try ModelContainer(for: schema, configurations: [modelConfiguration])
-//        } catch {
-//          fatalError("Could not create ModelContainer: \(error)")
-//        }
-//      }()
-
-//    var modelContext: ModelContext
-
     func placeholder(in context: Context) -> MovieEntry {
         MovieEntry(date: Date())
     }
@@ -60,9 +47,10 @@ struct FavoriteMoviesWidgetEntryView : View {
 
     var body: some View {
         ZStack {
-            Image(uiImage: UIImage().dataConvert(data: movies.last!.imageData))
+            Image(uiImage: UIImage().dataConvert(data: movies.last!.imageData)) // change last
                 .resizable()
                 .scaleEffect(1.3)
+                .widgetURL(URL(string: "movieapi:favoriteMovie?id=\(movies.last!.id)")!)
         }
     }
 }

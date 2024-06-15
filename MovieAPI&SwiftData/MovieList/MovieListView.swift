@@ -13,6 +13,8 @@ struct MovieListView: View {
     @ObservedObject var viewModel: MovieListViewModel
     @State private var tabBarPosition = 0
     private let frameHeight: CGFloat = 500
+    @State private var favoriteId: Int?
+    @State private var shouldPresentDetail = false
 
     init(viewModel: MovieListViewModel) {
         self.viewModel = viewModel
@@ -34,6 +36,28 @@ struct MovieListView: View {
                     await viewModel.getAllListMovies()
                 }
             }
+            NavigationLink(
+                destination: MovieDetailView(movieInformation: viewModel.favoritesMovies.filter {
+                    $0.id == favoriteId
+                }.first ?? Movie.create(id: 0000, title: "tset", overview: "test"),
+                                             modelContext: viewModel.modelContext,
+                                             favoriteMovieInformation: viewModel.favoriteMoviesInformation),
+                isActive: $shouldPresentDetail
+            ) {
+                EmptyView()
+            }.hidden()
+
+        }
+        .onOpenURL { url in
+            if let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false),
+               let queryItems = urlComponents.queryItems,
+               let idItem = queryItems.first(where: { $0.name == "id" }),
+               let id = Int(idItem.value ?? "") {
+                if let movie = viewModel.favoritesMovies.filter { $0.id == id }.first {
+                    favoriteId = id
+                    shouldPresentDetail = true
+                }
+            }
         }
     }
 
@@ -47,8 +71,8 @@ struct MovieListView: View {
         TabView(selection: $tabBarPosition) {
             ForEach(Array(viewModel.topRatedList.enumerated()), id: \.element) { index, movie in
                 NavigationLink(destination: MovieDetailView(movieInformation: movie,
-                                                    modelContext: viewModel.modelContext,
-                                                    favoriteMovieInformation: viewModel.favoriteMoviesInformation)) {
+                                                            modelContext: viewModel.modelContext,
+                                                            favoriteMovieInformation: viewModel.favoriteMoviesInformation)) {
                     MovieCard(
                         image: UIImage().dataConvert(
                             data: movie.imageData
@@ -70,8 +94,8 @@ struct MovieListView: View {
     func carouselSection(movieList: Binding<[Movie]> , title: String) -> some View {
         Carousel(items: movieList, title: title) { index, movie in
             NavigationLink(destination: MovieDetailView(movieInformation: movie,
-                                                modelContext: viewModel.modelContext,
-                                                favoriteMovieInformation: viewModel.favoriteMoviesInformation)) {
+                                                        modelContext: viewModel.modelContext,
+                                                        favoriteMovieInformation: viewModel.favoriteMoviesInformation)) {
                 MovieCard(
                     image: UIImage().dataConvert(data: movie.imageData),
                     isFavorite: movie.isFavorite ?? false,

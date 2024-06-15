@@ -7,7 +7,7 @@
 
 import SwiftData
 import NetworkService
-import SwiftUI
+import Foundation
 
 @Model
 public class FavoriteMovieInformations: Hashable {

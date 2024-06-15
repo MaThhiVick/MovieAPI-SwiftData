@@ -186,7 +186,6 @@
 				606AD50E2BFB830500294319 /* UIComponents */,
 				606AD5072BFB804900294319 /* MovieList */,
 				6060FA9C2BFB9421008B9EF0 /* MovieDetail */,
-				606AD4FB2BFB78D600294319 /* Services */,
 				60194BAA2BFB71A80040C037 /* Preview Content */,
 				60194BA82BFB71A80040C037 /* Assets.xcassets */,
 			);
@@ -247,21 +246,6 @@
 				60C1AB8D2C1B1D3E00E2A4B6 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		606AD4FB2BFB78D600294319 /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				606AD4FC2BFB791B00294319 /* Network */,
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
-		606AD4FC2BFB791B00294319 /* Network */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Network;
 			sourceTree = "<group>";
 		};
 		606AD5072BFB804900294319 /* MovieList */ = {

@@ -8,6 +8,7 @@
 import SwiftData
 import NetworkService
 import SwiftUI
+import WidgetKit
 
 class MovieDetailViewModel: ObservableObject {
     let networkService: NetworkRequestUseCase
@@ -39,6 +40,11 @@ class MovieDetailViewModel: ObservableObject {
     }
 
     func favoriteAction() {
+        defer {
+//            WidgetCenter.shared.reloadTimelines(ofKind: "FavoriteMoviesWidget")
+            WidgetCenter.shared.reloadAllTimelines() // change
+        }
+
         if movieInformation.isFavorite ?? false {
             movieInformation.isFavorite = false
             if let objectToDelete = favoriteMoviesInformation.first(where: { $0.id == movieInformation.id }) {
