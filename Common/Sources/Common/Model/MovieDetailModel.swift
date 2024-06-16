@@ -4,32 +4,32 @@
 //
 //  Created by Matheus Vicente on 20/05/24.
 //
-
+// change name and this public, typealias ?
 public struct MovieDetailModel: Decodable {
     public let id: Int
     let adult: Bool
     let backdropPath: String
     let belongsToCollection: BelongsToCollection?
     let budget: Int
-    let genres: [Genre]
-    let homepage: String
+    public let genres: [Genre]
+    public let homepage: String
     let imdbId: String?
     let originalLanguage: String
-    let originalTitle: String
-    let overview: String
-    let popularity: Double
-    let posterPath: String
+    public let originalTitle: String
+    public let overview: String
+    public let popularity: Double
+    public let posterPath: String
     let productionCompanies: [ProductionCompany]
     let productionCountries: [ProductionCountry]
-    let releaseDate: String
+    public let releaseDate: String
     let revenue: Int
-    let runtime: Int
+    public let runtime: Int
     let spokenLanguages: [SpokenLanguage]
     let status: String
     let tagline: String
     let title: String
     let video: Bool
-    let voteAverage: Double
+    public let voteAverage: Double
     let voteCount: Int
 }
 
@@ -55,9 +55,9 @@ struct BelongsToCollection: Codable {
     }
 }
 
-struct Genre: Codable {
+public struct Genre: Codable {
     let id: Int?
-    let name: String?
+    public let name: String?
 
     private enum CodingKeys: String, CodingKey {
         case id, name

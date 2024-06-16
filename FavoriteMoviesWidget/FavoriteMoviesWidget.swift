@@ -10,47 +10,69 @@ import SwiftUI
 import Common
 import SwiftData
 
-struct Provider: AppIntentTimelineProvider {
+struct Provider: TimelineProvider {
+    let networkUseCase: NetworkRequestUseCase = NetworkUseCase()
+
     func placeholder(in context: Context) -> MovieEntry {
-        MovieEntry(date: Date())
+        MovieEntry(date: .now, title: "placehorder", image: Data(), id: 0)
     }
 
-    func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> MovieEntry {
-        MovieEntry(date: Date())
+    func getSnapshot(in context: Context, completion: @escaping (MovieEntry) -> Void) {
+        let entry = MovieEntry(date: .now, title: "Snapshot", image: Data(), id: 0)
+        completion(entry)
     }
-    
-    func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<MovieEntry> {
-        var entries: [MovieEntry] = []
 
-        // remove
-        let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = MovieEntry(date: entryDate)
-            entries.append(entry)
+    func getTimeline(in context: Context, completion: @escaping (Timeline<MovieEntry>) -> Void) {
+        Task {
+            let favoriteMovies = await getFavoriteMovies()
+            if let movieInformation = await getMovieData(fromId: favoriteMovies.last!.id) {
+                completion(Timeline(entries: [movieInformation], policy: .atEnd))
+            } else {
+                completion(Timeline(entries: [MovieEntry(date: .now, title: "", image: Data(), id: 0)], policy: .atEnd))
+            }
         }
+    }
 
-        return Timeline(entries: entries, policy: .atEnd)
+    func getMovieData(fromId id: Int) async -> MovieEntry? {
+        guard let movieDetail: MovieDetailModel = await networkUseCase.request(urlMovie: .detail(id)),
+              let imageData: Data = await networkUseCase.request(urlMovie: .image(movieDetail.posterPath))
+        else {
+            return nil
+        }
+        return MovieEntry(date: .now, title: movieDetail.originalTitle, image: imageData, id: id)
+    }
+
+    func getFavoriteMovies() async -> [FavoriteMovieInformations] {
+        do {
+            let modelContainer = try await ModelContainer(for: FavoriteMovieInformations.self).mainContext
+            let descriptor = FetchDescriptor<FavoriteMovieInformations>()
+            let fetchedData = try? modelContainer.fetch(descriptor)
+            guard let fetchedData else {
+                return []
+            }
+            return fetchedData
+        } catch {
+            fatalError("Could not initialize ModelContainer")
+        }
     }
 }
 
 struct MovieEntry: TimelineEntry {
     var date: Date
-    let title: String = "Movie"
-    let image = UIImage(systemName: "photo")
+    let title: String
+    let image: Data
+    let id: Int
 }
 
-struct FavoriteMoviesWidgetEntryView : View {
-    @Environment(\.modelContext) var context
-    @Query var movies: [FavoriteMovieInformations]
+struct FavoriteMoviesWidgetEntryView: View {
     var entry: Provider.Entry
 
     var body: some View {
         ZStack {
-            Image(uiImage: UIImage().dataConvert(data: movies.last!.imageData)) // change last
+            Image(uiImage: UIImage().dataConvert(data: entry.image))
                 .resizable()
                 .scaleEffect(1.3)
-                .widgetURL(URL(string: "movieapi:favoriteMovie?id=\(movies.last!.id)")!)
+                .widgetURL(URL(string: "movieapi:favoriteMovie?id=\(entry.id)")!)
         }
     }
 }
@@ -58,22 +80,12 @@ struct FavoriteMoviesWidgetEntryView : View {
 struct FavoriteMoviesWidget: Widget {
     let kind: String = "FavoriteMoviesWidget"
 
-    let modelContainer: ModelContainer
-      init() {
-        do {
-          modelContainer = try ModelContainer(for: FavoriteMovieInformations.self)
-        } catch {
-          fatalError("Could not initialize ModelContainer")
-        }
-      }
-
     var body: some WidgetConfiguration {
-        AppIntentConfiguration(
+        StaticConfiguration(
             kind: kind,
             provider: Provider()
         ) { entry in
             FavoriteMoviesWidgetEntryView(entry: entry)
-                .modelContainer(modelContainer)
         }
         .configurationDisplayName("Favorite Movies")
         .description("Shows your favorite movies")

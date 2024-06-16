@@ -41,8 +41,7 @@ class MovieDetailViewModel: ObservableObject {
 
     func favoriteAction() {
         defer {
-//            WidgetCenter.shared.reloadTimelines(ofKind: "FavoriteMoviesWidget")
-            WidgetCenter.shared.reloadAllTimelines() // change
+            WidgetCenter.shared.reloadAllTimelines()
         }
 
         if movieInformation.isFavorite ?? false {
@@ -53,7 +52,7 @@ class MovieDetailViewModel: ObservableObject {
         } else {
             movieInformation.isFavorite = true
             modelContext.insert(
-                FavoriteMovieInformations(
+                FavoriteMovieInformations( // return as it was
                     id: movieInformation.id,
                     movieType: movieInformation.movieType ?? .topRated,
                     title: movieInformation.title,

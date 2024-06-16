@@ -2,10 +2,31 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.widgetkit-extension</string>
+	</dict>
+	<key>MovieHeader</key>
+	<dict>
+		<key>Authorization</key>
+		<string>Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmNGI4ODk2ODBkODI1ZmI2MGZlYmFjYTk1NjgxYTkxZCIsInN1YiI6IjY1NmFkYWRhZmNhZGI0MDBhZGQzNjlhMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.d-OSE-4XS7pdA33Xi7VdJzX_NiP2rqh-e8tFITQNYhA</string>
+		<key>accept</key>
+		<string>application/json</string>
+	</dict>
+	<key>URLMovies</key>
+	<dict>
+		<key>movieDetail</key>
+		<string>https://api.themoviedb.org/3/movie/MOVIE_ID?language=en-US</string>
+		<key>movieImage</key>
+		<string>http://image.tmdb.org/t/p/w500/</string>
+		<key>movieList</key>
+		<string>https://api.themoviedb.org/3/movie/TYPE?language=en-US&amp;page=1</string>
 	</dict>
 </dict>
 </plist>
