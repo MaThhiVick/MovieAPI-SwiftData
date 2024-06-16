@@ -12,13 +12,14 @@ import class Common.FavoriteMovieInformations
 @main
 struct MovieAPI_SwiftDataApp: App {
     let modelContainer: ModelContainer
-      init() {
+
+    init() {
         do {
-          modelContainer = try ModelContainer(for: FavoriteMovieInformations.self)
+            modelContainer = try ModelContainer(for: FavoriteMovieInformations.self)
         } catch {
-          fatalError("Could not initialize ModelContainer")
+            fatalError("Could not initialize ModelContainer")
         }
-      }
+    }
 
     var body: some Scene {
         WindowGroup {

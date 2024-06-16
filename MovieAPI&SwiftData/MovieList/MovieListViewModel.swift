@@ -18,6 +18,7 @@ final class MovieListViewModel: ObservableObject {
     @Published var popularList = [Movie]()
     @Published var favoritesMovies = [Movie]()
     @Published var isLoading = true
+    @Published var shouldPresentDetail = false
 
     init(movieProvider: MovieDataProviderProtocol = MovieDataProvider(),
          modelContext: ModelContext) {
@@ -26,12 +27,15 @@ final class MovieListViewModel: ObservableObject {
     }
 
     @MainActor
-    func getAllListMovies() async {
-            topRatedList = await movieProvider.getMovies(from: .list(.topRated))
-            popularList = await movieProvider.getMovies(from: .list(.popular))
-            fetchData()
-            favoriteMovieSetup(favoriteMoviesInformation)
-            isLoading = false
+    func getAllListMovies(shouldPresentDetailFromView: Bool) async {
+        topRatedList = await movieProvider.getMovies(from: .list(.topRated))
+        popularList = await movieProvider.getMovies(from: .list(.popular))
+        fetchData()
+        favoriteMovieSetup(favoriteMoviesInformation)
+        isLoading = false
+        if shouldPresentDetailFromView {
+            shouldPresentDetail = true
+        }
     }
 
     private func favoriteMovieSetup(_ idList: [FavoriteMovieInformations]) {
@@ -79,8 +83,7 @@ final class MovieListViewModel: ObservableObject {
 
     func favoriteAction(fromMovie movie: Movie, at index: Int) {
         defer {
-//            WidgetCenter.shared.reloadTimelines(ofKind: "FavoriteMoviesWidget")
-            WidgetCenter.shared.reloadAllTimelines() // change
+            WidgetCenter.shared.reloadAllTimelines()
         }
         if movie.isFavorite ?? false {
             favoritesMovies.removeAll(where: { $0.id == movie.id })
