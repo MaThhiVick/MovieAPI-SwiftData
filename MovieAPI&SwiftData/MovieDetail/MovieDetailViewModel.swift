@@ -12,7 +12,7 @@ import WidgetKit
 
 class MovieDetailViewModel: ObservableObject {
     let networkService: NetworkRequestUseCase
-    @Published var movieInformation: Movie
+    @Published var movieInformation: Movie?
     @Published var movieDetail: MovieDetailModel?
     @Published var isLoading = true
     @Published var modelContext: ModelContext
@@ -20,7 +20,7 @@ class MovieDetailViewModel: ObservableObject {
 
     init(
         networkService: NetworkRequestUseCase = NetworkUseCase(),
-        movieInformation: Movie,
+        movieInformation: Movie?,
         modelContext: ModelContext,
         favoriteMoviesInformation: [FavoriteMovieIdentification]
     ) {
@@ -32,7 +32,7 @@ class MovieDetailViewModel: ObservableObject {
 
     @MainActor
     func getMovieDetail() async {
-        guard let result: MovieDetailModel = await networkService.request(urlMovie: .detail(self.movieInformation.id)) else {
+        guard let result: MovieDetailModel = await networkService.request(urlMovie: .detail(self.movieInformation?.id ?? 0)) else {
             return
         }
         movieDetail = result
@@ -44,17 +44,17 @@ class MovieDetailViewModel: ObservableObject {
             WidgetCenter.shared.reloadAllTimelines()
         }
 
-        if movieInformation.isFavorite ?? false {
-            movieInformation.isFavorite = false
-            if let objectToDelete = favoriteMoviesInformation.first(where: { $0.id == movieInformation.id }) {
+        if movieInformation?.isFavorite ?? false {
+            movieInformation?.isFavorite = false
+            if let objectToDelete = favoriteMoviesInformation.first(where: { $0.id == movieInformation?.id ?? 0 }) {
                 modelContext.delete(objectToDelete)
             }
         } else {
-            movieInformation.isFavorite = true
+            movieInformation?.isFavorite = true
             modelContext.insert(
                 FavoriteMovieIdentification(
-                    id: movieInformation.id,
-                    movieType: movieInformation.movieType ?? .topRated
+                    id: movieInformation?.id ?? 0,
+                    movieType: movieInformation?.movieType ?? .topRated
                 )
             )
         }

@@ -34,7 +34,7 @@ struct MovieListView: View {
             NavigationLink(
                 destination: MovieDetailView(movieInformation: viewModel.favoritesMovies.filter {
                     $0.id == favoriteId
-                }[0],
+                }.first,
                                              modelContext: viewModel.modelContext,
                                              favoriteMovieInformation: viewModel.favoriteMoviesInformation),
                 isActive: $viewModel.shouldPresentDetail
@@ -53,6 +53,9 @@ struct MovieListView: View {
                let id = Int(idItem.value ?? "") {
                 favoriteId = id
                 shouldPresentDetail = true
+                if viewModel.isLoading == false {
+                    viewModel.shouldPresentDetail = true
+                }
             }
         }
     }

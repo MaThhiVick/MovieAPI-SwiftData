@@ -13,7 +13,7 @@ struct MovieDetailView: View {
     @ObservedObject private var viewModel: MovieDetailViewModel
 
     init(
-        movieInformation: Movie,
+        movieInformation: Movie?,
         modelContext: ModelContext,
         favoriteMovieInformation: [FavoriteMovieIdentification]
     ) {
@@ -47,9 +47,9 @@ struct MovieDetailView: View {
     func movieCard() -> some View {
         MovieCard(
             image: UIImage().dataConvert(
-                data: viewModel.movieInformation.imageData
+                data: viewModel.movieInformation?.imageData
             ),
-            isFavorite: viewModel.movieInformation.isFavorite ?? false,
+            isFavorite: viewModel.movieInformation?.isFavorite ?? false,
             cardSize: .big
         ) {
             viewModel.favoriteAction()
