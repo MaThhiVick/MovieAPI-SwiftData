@@ -42,10 +42,10 @@ struct Provider: TimelineProvider {
         return MovieEntry(date: .now, title: movieDetail.originalTitle, image: imageData, id: id)
     }
 
-    func getFavoriteMovies() async -> [FavoriteMovieInformations] {
+    func getFavoriteMovies() async -> [FavoriteMovieIdentification] {
         do {
-            let modelContainer = try await ModelContainer(for: FavoriteMovieInformations.self).mainContext
-            let descriptor = FetchDescriptor<FavoriteMovieInformations>()
+            let modelContainer = try await ModelContainer(for: FavoriteMovieIdentification.self).mainContext
+            let descriptor = FetchDescriptor<FavoriteMovieIdentification>()
             let fetchedData = try? modelContainer.fetch(descriptor)
             guard let fetchedData else {
                 return []

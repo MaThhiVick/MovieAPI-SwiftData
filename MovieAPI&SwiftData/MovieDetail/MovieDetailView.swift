@@ -15,7 +15,7 @@ struct MovieDetailView: View {
     init(
         movieInformation: Movie,
         modelContext: ModelContext,
-        favoriteMovieInformation: [FavoriteMovieInformations]
+        favoriteMovieInformation: [FavoriteMovieIdentification]
     ) {
         viewModel = MovieDetailViewModel(
             movieInformation: movieInformation,

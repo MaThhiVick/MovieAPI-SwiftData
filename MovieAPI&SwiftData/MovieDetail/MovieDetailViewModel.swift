@@ -16,13 +16,13 @@ class MovieDetailViewModel: ObservableObject {
     @Published var movieDetail: MovieDetailModel?
     @Published var isLoading = true
     @Published var modelContext: ModelContext
-    @Published var favoriteMoviesInformation = [FavoriteMovieInformations]()
+    @Published var favoriteMoviesInformation = [FavoriteMovieIdentification]()
 
     init(
         networkService: NetworkRequestUseCase = NetworkUseCase(),
         movieInformation: Movie,
         modelContext: ModelContext,
-        favoriteMoviesInformation: [FavoriteMovieInformations]
+        favoriteMoviesInformation: [FavoriteMovieIdentification]
     ) {
         self.networkService = networkService
         self.movieInformation = movieInformation
@@ -52,11 +52,9 @@ class MovieDetailViewModel: ObservableObject {
         } else {
             movieInformation.isFavorite = true
             modelContext.insert(
-                FavoriteMovieInformations( // return as it was
+                FavoriteMovieIdentification(
                     id: movieInformation.id,
-                    movieType: movieInformation.movieType ?? .topRated,
-                    title: movieInformation.title,
-                    imageData: movieInformation.imageData ?? Data()
+                    movieType: movieInformation.movieType ?? .topRated
                 )
             )
         }

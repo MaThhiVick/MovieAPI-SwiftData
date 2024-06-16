@@ -13,7 +13,7 @@ import WidgetKit
 final class MovieListViewModel: ObservableObject {
     let movieProvider: MovieDataProviderProtocol
     @Published var modelContext: ModelContext
-    @Published var favoriteMoviesInformation = [FavoriteMovieInformations]()
+    @Published var favoriteMoviesInformation = [FavoriteMovieIdentification]()
     @Published var topRatedList = [Movie]()
     @Published var popularList = [Movie]()
     @Published var favoritesMovies = [Movie]()
@@ -38,13 +38,13 @@ final class MovieListViewModel: ObservableObject {
         }
     }
 
-    private func favoriteMovieSetup(_ idList: [FavoriteMovieInformations]) {
+    private func favoriteMovieSetup(_ idList: [FavoriteMovieIdentification]) {
         favoritesMovies = []
         isTheseMovies(&topRatedList, favorite: idList)
         isTheseMovies(&popularList, favorite: idList)
     }
 
-    private func isTheseMovies(_ movies: inout [Movie], favorite: [FavoriteMovieInformations]) {
+    private func isTheseMovies(_ movies: inout [Movie], favorite: [FavoriteMovieIdentification]) {
         let favoriteMoviesId = Set(favorite.map { $0.id })
 
         for index in movies.indices where favoriteMoviesId.contains(movies[index].id) {
@@ -95,11 +95,9 @@ final class MovieListViewModel: ObservableObject {
             }
         } else {
             modelContext.insert(
-                FavoriteMovieInformations(
+                FavoriteMovieIdentification(
                     id: movie.id,
-                    movieType: movie.movieType ?? .topRated,
-                    title: movie.title,
-                    imageData: movie.imageData ?? Data()
+                    movieType: movie.movieType ?? .topRated
                 )
             )
             addToFavoriteMovie(movie: movie, at: index)
@@ -108,7 +106,7 @@ final class MovieListViewModel: ObservableObject {
 
     private func fetchData() {
         do {
-            let descriptor = FetchDescriptor<FavoriteMovieInformations>()
+            let descriptor = FetchDescriptor<FavoriteMovieIdentification>()
             favoriteMoviesInformation = try modelContext.fetch(descriptor)
         } catch {
             print("Fetch failed")

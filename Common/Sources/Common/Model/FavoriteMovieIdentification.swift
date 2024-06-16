@@ -9,16 +9,12 @@ import SwiftData
 import Foundation
 
 @Model
-public class FavoriteMovieInformations: Hashable {
+public class FavoriteMovieIdentification: Hashable {
     @Attribute(.unique) public let id: Int
     var movieType: MovieListType
-    public var title: String
-    public var imageData: Data
 
-    public init(id: Int, movieType: MovieListType, title: String, imageData: Data) {
+    public init(id: Int, movieType: MovieListType) {
         self.id = id
         self.movieType = movieType
-        self.title = title
-        self.imageData = imageData
     }
 }

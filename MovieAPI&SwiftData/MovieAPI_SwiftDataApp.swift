@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SwiftData
-import class Common.FavoriteMovieInformations
+import class Common.FavoriteMovieIdentification
 
 @main
 struct MovieAPI_SwiftDataApp: App {
@@ -15,7 +15,7 @@ struct MovieAPI_SwiftDataApp: App {
 
     init() {
         do {
-            modelContainer = try ModelContainer(for: FavoriteMovieInformations.self)
+            modelContainer = try ModelContainer(for: FavoriteMovieIdentification.self)
         } catch {
             fatalError("Could not initialize ModelContainer")
         }
