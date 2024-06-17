@@ -81,10 +81,12 @@ struct FavoriteMoviesWidgetEntryView: View {
                     .scaleEffect(1.3)
                     .widgetURL(URL(string: "movieapi:favoriteMovie?id=\(id)")!)
             }
+            .containerBackground(for: .widget) {}
         } else {
             VStack {
                 Text("Add some movie as favorite")
             }
+            .containerBackground(for: .widget) {}
         }
     }
 }
@@ -114,8 +116,9 @@ extension UIImage {
     }
 }
 
-//#Preview(as: .systemSmall) {
-//    FavoriteMoviesWidget()
-//} timeline: {
-//    MovieEntry(date: .now)
-//}
+#Preview(as: .systemSmall) {
+    FavoriteMoviesWidget()
+} timeline: {
+    MovieEntry(date: .now, title: "Movie", image: Data(), id: 0)
+    MovieEntry(date: .now, title: "Movie", image: Data(), id: nil)
+}
