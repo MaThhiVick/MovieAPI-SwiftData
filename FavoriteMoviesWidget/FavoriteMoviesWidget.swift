@@ -11,38 +11,44 @@ import Common
 import SwiftData
 
 struct Provider: TimelineProvider {
-    let networkUseCase: NetworkRequestUseCase = NetworkUseCase()
+    private let networkUseCase: NetworkRequestUseCase
+
+    init(networkUseCase: NetworkRequestUseCase = NetworkUseCase()) {
+        self.networkUseCase = networkUseCase
+    }
 
     func placeholder(in context: Context) -> MovieEntry {
-        MovieEntry(date: .now, title: "placehorder", image: Data(), id: 0)
+        MovieEntry(date: .now, title: "placehorder", image: Data(), id: nil)
     }
 
     func getSnapshot(in context: Context, completion: @escaping (MovieEntry) -> Void) {
-        let entry = MovieEntry(date: .now, title: "Snapshot", image: Data(), id: 0)
+        let entry = MovieEntry(date: .now, title: "Snapshot", image: Data(), id: nil)
         completion(entry)
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<MovieEntry>) -> Void) {
         Task {
             let favoriteMovies = await getFavoriteMovies()
-            if let movieInformation = await getMovieData(fromId: favoriteMovies.last!.id) {
+
+            if let lastMovie = favoriteMovies.last,
+               let movieInformation = await getMovieData(fromId: lastMovie.id) {
                 completion(Timeline(entries: [movieInformation], policy: .atEnd))
             } else {
-                completion(Timeline(entries: [MovieEntry(date: .now, title: "", image: Data(), id: 0)], policy: .atEnd))
+                completion(Timeline(entries: [MovieEntry(date: .now, title: "", image: Data(), id: nil)], policy: .atEnd))
             }
         }
     }
 
-    func getMovieData(fromId id: Int) async -> MovieEntry? {
+    private func getMovieData(fromId id: Int) async -> MovieEntry? {
         guard let movieDetail: MovieDetailModel = await networkUseCase.request(urlMovie: .detail(id)),
-              let imageData: Data = await networkUseCase.request(urlMovie: .image(movieDetail.posterPath))
+             let imageData: Data = await networkUseCase.request(urlMovie: .image(movieDetail.posterPath))
         else {
             return nil
         }
         return MovieEntry(date: .now, title: movieDetail.originalTitle, image: imageData, id: id)
     }
 
-    func getFavoriteMovies() async -> [FavoriteMovieIdentification] {
+    private func getFavoriteMovies() async -> [FavoriteMovieIdentification] {
         do {
             let modelContainer = try await ModelContainer(for: FavoriteMovieIdentification.self).mainContext
             let descriptor = FetchDescriptor<FavoriteMovieIdentification>()
@@ -61,18 +67,24 @@ struct MovieEntry: TimelineEntry {
     var date: Date
     let title: String
     let image: Data
-    let id: Int
+    let id: Int?
 }
 
 struct FavoriteMoviesWidgetEntryView: View {
     var entry: Provider.Entry
 
     var body: some View {
-        ZStack {
-            Image(uiImage: UIImage().dataConvert(data: entry.image))
-                .resizable()
-                .scaleEffect(1.3)
-                .widgetURL(URL(string: "movieapi:favoriteMovie?id=\(entry.id)")!)
+        if let id = entry.id {
+            ZStack {
+                Image(uiImage: UIImage().dataConvert(data: entry.image))
+                    .resizable()
+                    .scaleEffect(1.3)
+                    .widgetURL(URL(string: "movieapi:favoriteMovie?id=\(id)")!)
+            }
+        } else {
+            VStack {
+                Text("Add some movie as favorite")
+            }
         }
     }
 }

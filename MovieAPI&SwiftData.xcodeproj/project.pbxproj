@@ -36,7 +36,6 @@
 		60C1AB8E2C1B1D3E00E2A4B6 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60C1AB8D2C1B1D3E00E2A4B6 /* SwiftUI.framework */; };
 		60C1AB912C1B1D3E00E2A4B6 /* FavoriteMoviesWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AB902C1B1D3E00E2A4B6 /* FavoriteMoviesWidgetBundle.swift */; };
 		60C1AB952C1B1D3E00E2A4B6 /* FavoriteMoviesWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AB942C1B1D3E00E2A4B6 /* FavoriteMoviesWidget.swift */; };
-		60C1AB972C1B1D3E00E2A4B6 /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C1AB962C1B1D3E00E2A4B6 /* AppIntent.swift */; };
 		60C1AB992C1B1D4000E2A4B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60C1AB982C1B1D4000E2A4B6 /* Assets.xcassets */; };
 		60C1AB9D2C1B1D4000E2A4B6 /* FavoriteMoviesWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 60C1AB8A2C1B1D3E00E2A4B6 /* FavoriteMoviesWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -106,7 +105,6 @@
 		60C1AB8D2C1B1D3E00E2A4B6 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		60C1AB902C1B1D3E00E2A4B6 /* FavoriteMoviesWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMoviesWidgetBundle.swift; sourceTree = "<group>"; };
 		60C1AB942C1B1D3E00E2A4B6 /* FavoriteMoviesWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMoviesWidget.swift; sourceTree = "<group>"; };
-		60C1AB962C1B1D3E00E2A4B6 /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
 		60C1AB982C1B1D4000E2A4B6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		60C1AB9A2C1B1D4000E2A4B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -279,7 +277,6 @@
 			children = (
 				60C1AB902C1B1D3E00E2A4B6 /* FavoriteMoviesWidgetBundle.swift */,
 				60C1AB942C1B1D3E00E2A4B6 /* FavoriteMoviesWidget.swift */,
-				60C1AB962C1B1D3E00E2A4B6 /* AppIntent.swift */,
 				60C1AB982C1B1D4000E2A4B6 /* Assets.xcassets */,
 				60C1AB9A2C1B1D4000E2A4B6 /* Info.plist */,
 			);
@@ -462,7 +459,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				60C1AB912C1B1D3E00E2A4B6 /* FavoriteMoviesWidgetBundle.swift in Sources */,
-				60C1AB972C1B1D3E00E2A4B6 /* AppIntent.swift in Sources */,
 				60C1AB952C1B1D3E00E2A4B6 /* FavoriteMoviesWidget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
