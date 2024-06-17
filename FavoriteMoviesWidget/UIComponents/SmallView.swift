@@ -22,7 +22,6 @@ struct SmallView: View {
         .containerBackground(for: .widget) {
             Color.black
         }
-
     }
 }
 

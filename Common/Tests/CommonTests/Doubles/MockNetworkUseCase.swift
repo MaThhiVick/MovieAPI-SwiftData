@@ -7,11 +7,12 @@
 
 import Foundation
 @testable import MovieAPI_SwiftData
+import Common
 
 class MockNetworkUseCase: NetworkRequestUseCase {
     var shouldReturnNil = false
 
-    func request<T>(urlMovie: MovieAPI_SwiftData.URLMoviesType) async -> T? where T: Decodable {
+    func request<T>(urlMovie: URLMoviesType) async -> T? where T: Decodable {
         if shouldReturnNil {
             return nil
         }
@@ -19,7 +20,6 @@ class MockNetworkUseCase: NetworkRequestUseCase {
         if T.self == Data.self {
             return nil
         }
-
         return MovieResponseModel.getMovieResponse() as? T
     }
 }

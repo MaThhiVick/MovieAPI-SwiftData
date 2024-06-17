@@ -7,21 +7,18 @@
 
 import Foundation
 @testable import MovieAPI_SwiftData
-import NetworkService
+import Common
 
 final class NetworkServiceMock: NetworkRequesting {
     var dataToReturn: Encodable = "test"
     var shouldThrowsError = false
 
-    init(headers: [String: String] = ["": ""], urlSession: URLSession = URLSession.shared) {
-
-    }
+    init(headers: [String: String] = ["": ""], urlSession: URLSession = URLSession.shared) { }
 
     func request(url: URL, httpMethod: HTTPMethod) async throws -> Data {
         if shouldThrowsError {
             throw NSError()
         }
-
         return try JSONEncoder().encode(dataToReturn)
     }
 }

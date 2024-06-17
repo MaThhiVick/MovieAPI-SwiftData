@@ -67,25 +67,3 @@ public struct Movie: Codable, Hashable {
         case imageData
     }
 }
-
-extension Movie {
-    static public func create(id: Int, title: String, overview: String) -> Movie {
-        return Movie(adult: false,
-                     backdropPath: "",
-                     genreIDs: [],
-                     id: id,
-                     originalLanguage: "",
-                     originalTitle: "",
-                     overview: overview,
-                     popularity: 0.0,
-                     posterPath: "",
-                     releaseDate: "",
-                     title: title,
-                     video: false,
-                     voteAverage: 0.0,
-                     voteCount: 0,
-                     imageData: nil,
-                     isFavorite: nil,
-                     movieType: nil)
-    }
-}
