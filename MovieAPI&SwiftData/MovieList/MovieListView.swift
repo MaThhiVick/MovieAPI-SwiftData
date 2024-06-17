@@ -13,13 +13,9 @@ struct MovieListView: View {
     @ObservedObject var viewModel: MovieListViewModel
     @State private var tabBarPosition = 0
     private let frameHeight: CGFloat = 500
-    @State var favoriteId: Int
-    @State var shouldPresentDetail: Bool
 
-    init(viewModel: MovieListViewModel, shouldPresentDetail: Bool = false, favoriteId: Int = 0) {
+    init(viewModel: MovieListViewModel) {
         self.viewModel = viewModel
-        self.shouldPresentDetail = shouldPresentDetail
-        self.favoriteId = favoriteId
     }
 
     var body: some View {
@@ -31,32 +27,20 @@ struct MovieListView: View {
                     carouselSection(movieList: $viewModel.favoritesMovies, title: "Favorite movies")
                 }
             }
-            NavigationLink(
-                destination: MovieDetailView(movieInformation: viewModel.favoritesMovies.filter {
-                    $0.id == favoriteId
-                }.first,
-                                             modelContext: viewModel.modelContext,
-                                             favoriteMovieInformation: viewModel.favoriteMoviesInformation),
-                isActive: $viewModel.shouldPresentDetail
-            ) {
-                EmptyView()
-            }.hidden()
-                .redacted(reason: $viewModel.isLoading.wrappedValue == true ? .placeholder : [])
-                .task {
-                    await viewModel.getAllListMovies(shouldPresentDetailFromView: shouldPresentDetail)
-                }
+            .redacted(reason: $viewModel.isLoading.wrappedValue == true ? .placeholder : [])
+            .task {
+                await viewModel.getAllListMovies()
+            }
+            .navigationDestination(isPresented: $viewModel.showDetailView) {
+                MovieDetailView(
+                    movieInformation: viewModel.getFavoriteMovie(),
+                    modelContext: viewModel.modelContext,
+                    favoriteMovieInformation: viewModel.favoriteMoviesInformation
+                )
+            }
         }
         .onOpenURL { url in
-            if let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false),
-               let queryItems = urlComponents.queryItems,
-               let idItem = queryItems.first(where: { $0.name == "id" }),
-               let id = Int(idItem.value ?? "") {
-                favoriteId = id
-                shouldPresentDetail = true
-                if viewModel.isLoading == false {
-                    viewModel.shouldPresentDetail = true
-                }
-            }
+            viewModel.handle(url: url)
         }
     }
 

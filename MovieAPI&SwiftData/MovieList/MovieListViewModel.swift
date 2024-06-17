@@ -18,7 +18,8 @@ final class MovieListViewModel: ObservableObject {
     @Published var popularList = [Movie]()
     @Published var favoritesMovies = [Movie]()
     @Published var isLoading = true
-    @Published var shouldPresentDetail = false
+    @Published var selectedFavoriteId: Int?
+    @Published var showDetailView = false
 
     init(movieProvider: MovieDataProviderProtocol = MovieDataProvider(),
          modelContext: ModelContext) {
@@ -27,19 +28,45 @@ final class MovieListViewModel: ObservableObject {
     }
 
     @MainActor
-    func getAllListMovies(shouldPresentDetailFromView: Bool) async {
+    func getAllListMovies() async {
         topRatedList = await movieProvider.getMovies(from: .list(.topRated))
         popularList = await movieProvider.getMovies(from: .list(.popular))
         fetchData()
         favoriteMovieSetup(favoriteMoviesInformation)
         isLoading = false
-        if shouldPresentDetailFromView {
-            shouldPresentDetail = true
+        checkIfShouldOpenDetail()
+    }
+
+    func getFavoriteMovie() -> Movie? {
+        return favoritesMovies.filter({ $0.id == selectedFavoriteId }).first
+    }
+
+    func handle(url: URL) {
+        guard let id = getIdFrom(url: url) else { return }
+        selectedFavoriteId = id
+        if !isLoading {
+            checkIfShouldOpenDetail()
         }
     }
 
+    func getIdFrom(url: URL) -> Int? {
+        if let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false),
+           let queryItems = urlComponents.queryItems,
+           let idItem = queryItems.first(where: { $0.name == "id" }),
+           let id = Int(idItem.value ?? "") {
+            return id
+        }
+        return nil
+    }
+
+    func checkIfShouldOpenDetail() {
+        guard selectedFavoriteId != nil else {
+            return
+        }
+        showDetailView = true
+    }
+
     private func favoriteMovieSetup(_ idList: [FavoriteMovieIdentification]) {
-        favoritesMovies = []
         isTheseMovies(&topRatedList, favorite: idList)
         isTheseMovies(&popularList, favorite: idList)
     }
