@@ -7,7 +7,7 @@
 
 import Foundation
 
-public extension MovieResponseModel: Equatable {
+public struct MovieResponseModelMock: MovieResponseModel {
     public static func == (
         lhs: MovieAPI_SwiftData.MovieResponseModel,
         rhs: MovieAPI_SwiftData.MovieResponseModel

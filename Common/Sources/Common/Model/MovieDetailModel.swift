@@ -4,33 +4,33 @@
 //
 //  Created by Matheus Vicente on 20/05/24.
 //
-// change name and this public, typealias ?
+
 public struct MovieDetailModel: Decodable {
     public let id: Int
-    let adult: Bool
-    let backdropPath: String
-    let belongsToCollection: BelongsToCollection?
-    let budget: Int
+    public let adult: Bool
+    public let backdropPath: String
+    public let belongsToCollection: BelongsToCollection?
+    public let budget: Int
     public let genres: [Genre]
     public let homepage: String
-    let imdbId: String?
-    let originalLanguage: String
+    public let imdbId: String?
+    public let originalLanguage: String
     public let originalTitle: String
     public let overview: String
     public let popularity: Double
     public let posterPath: String
-    let productionCompanies: [ProductionCompany]
-    let productionCountries: [ProductionCountry]
+    public let productionCompanies: [ProductionCompany]
+    public let productionCountries: [ProductionCountry]
     public let releaseDate: String
-    let revenue: Int
+    public let revenue: Int
     public let runtime: Int
-    let spokenLanguages: [SpokenLanguage]
-    let status: String
-    let tagline: String
-    let title: String
-    let video: Bool
+    public let spokenLanguages: [SpokenLanguage]
+    public let status: String
+    public let tagline: String
+    public let title: String
+    public let video: Bool
     public let voteAverage: Double
-    let voteCount: Int
+    public let voteCount: Int
 }
 
 extension MovieDetailModel {
@@ -44,7 +44,7 @@ extension MovieDetailModel {
     }
 }
 
-struct BelongsToCollection: Codable {
+public struct BelongsToCollection: Codable {
     let id: Int
     let name: String
     let posterPath: String?
@@ -64,7 +64,7 @@ public struct Genre: Codable {
     }
 }
 
-struct ProductionCompany: Codable {
+public struct ProductionCompany: Codable {
     let id: Int?
     let logoPath: String?
     let name: String?
@@ -75,7 +75,7 @@ struct ProductionCompany: Codable {
     }
 }
 
-struct ProductionCountry: Codable {
+public struct ProductionCountry: Codable {
     let iso31661: String?
     let name: String?
 
@@ -84,7 +84,7 @@ struct ProductionCountry: Codable {
     }
 }
 
-struct SpokenLanguage: Codable {
+public struct SpokenLanguage: Codable {
     let englishName: String?
     let iso6391: String?
     let name: String?
