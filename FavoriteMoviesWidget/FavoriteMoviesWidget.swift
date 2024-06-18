@@ -42,8 +42,8 @@ struct FavoriteMoviesWidget: Widget {
         ) { entry in
             FavoriteMoviesWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("Favorite Movies")
-        .description("Shows your favorite movies")
+        .configurationDisplayName("favorite_movies")
+        .description("widget_description")
         .supportedFamilies([.systemSmall, .systemMedium])
     }
 }

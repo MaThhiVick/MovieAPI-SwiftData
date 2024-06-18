@@ -10,11 +10,11 @@ import SwiftUI
 struct Carousel<Model: Hashable, Content: View>: View {
     @Binding var items: [Model]
     var content: (Int, Model) -> Content
-    var title: String
+    var title: LocalizedStringKey
 
     init(
         items: Binding<[Model]>,
-        title: String,
+        title: LocalizedStringKey,
         content: @escaping (Int, Model) -> Content
     ) {
         self._items = items
