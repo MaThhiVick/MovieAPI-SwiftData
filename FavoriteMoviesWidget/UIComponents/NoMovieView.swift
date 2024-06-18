@@ -10,7 +10,7 @@ import SwiftUI
 struct NoMovieView: View {
     var body: some View {
         VStack {
-            Text("Add some movie as favorite")
+            Text("no_movie_found_for_widget")
         }
         .containerBackground(for: .widget) {}
     }

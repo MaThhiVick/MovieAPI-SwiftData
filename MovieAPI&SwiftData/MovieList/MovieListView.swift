@@ -23,8 +23,8 @@ struct MovieListView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: .none) {
                     topRatedSection()
-                    carouselSection(movieList: $viewModel.popularList, title: "Popular")
-                    carouselSection(movieList: $viewModel.favoritesMovies, title: "Favorite movies")
+                    carouselSection(movieList: $viewModel.popularList, title: "popular")
+                    carouselSection(movieList: $viewModel.favoritesMovies, title: "favorite_movies")
                 }
             }
             .redacted(reason: $viewModel.isLoading.wrappedValue == true ? .placeholder : [])
@@ -46,7 +46,7 @@ struct MovieListView: View {
 
     @ViewBuilder
     func topRatedSection() -> some View {
-        Text("Top rated")
+        Text("top_rated")
             .font(.largeTitle)
             .bold()
             .padding(.top, 32)
@@ -74,7 +74,7 @@ struct MovieListView: View {
     }
 
     @ViewBuilder
-    func carouselSection(movieList: Binding<[Movie]> , title: String) -> some View {
+    func carouselSection(movieList: Binding<[Movie]> , title: LocalizedStringKey) -> some View {
         Carousel(items: movieList, title: title) { index, movie in
             NavigationLink(destination: MovieDetailView(movieInformation: movie,
                                                         modelContext: viewModel.modelContext,

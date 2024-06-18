@@ -82,30 +82,30 @@ struct MovieDetailView: View {
     @ViewBuilder
     func informationSection() -> some View {
         InformationMovie(
-            title: "Overview",
-            information: viewModel.movieDetail?.overview ?? "Not informed"
+            title: "overview",
+            information: viewModel.movieDetail?.overview ?? "not_informed"
         )
 
         InformationMovie(
-            title: "Average",
+            title: "average",
             information: "\(viewModel.movieDetail?.voteAverage ?? 0)"
         )
 
         InformationMovie(
-            title: "Popularity",
+            title: "popularity",
             information: "\(viewModel.movieDetail?.popularity ?? 0)"
         )
 
         InformationMovie(
-            title: "Run time",
+            title: "run_time",
             information: "\(viewModel.movieDetail?.runtime ?? 0)min"
         )
 
         InformationMovie(
-            title: "Release date",
-            information: viewModel.movieDetail?.releaseDate ?? "Not informed"
+            title: "release_date",
+            information: viewModel.movieDetail?.releaseDate ?? "not_informed"
         )
 
-        Link("Web page", destination: URL(string: viewModel.movieDetail?.homepage ?? "") ?? URL(string: "https://www.imdb.com")!)
+        Link("web_page", destination: URL(string: viewModel.movieDetail?.homepage ?? "") ?? URL(string: "https://www.imdb.com")!)
     }
 }

@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct InformationMovie: View {
-    let title: String
+    let title: LocalizedStringKey
     let information: String
 
-    init(title: String, information: String) {
+    init(title: LocalizedStringKey, information: String) {
         self.title = title
         self.information = information
     }
@@ -21,7 +21,7 @@ struct InformationMovie: View {
             line()
                 .padding(.bottom, 4)
             HStack(alignment: .top, spacing: 4) {
-                Text("\(title):")
+                Text(title)
                     .font(.subheadline)
                 Text(information)
                     .font(.caption)
@@ -37,8 +37,4 @@ struct InformationMovie: View {
             .frame(height: 0.3)
             .foregroundStyle(.gray)
     }
-}
-
-#Preview {
-    InformationMovie(title: "Harry Potter", information: "test tset test test test etst test test test test")
 }
