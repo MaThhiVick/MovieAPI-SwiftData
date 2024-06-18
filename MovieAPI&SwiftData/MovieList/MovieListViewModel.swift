@@ -60,7 +60,8 @@ final class MovieListViewModel: ObservableObject {
     }
 
     func checkIfShouldOpenDetail() {
-        guard selectedFavoriteId != nil else {
+        guard selectedFavoriteId != nil,
+        let _ = getFavoriteMovie() else {
             return
         }
         showDetailView = true
