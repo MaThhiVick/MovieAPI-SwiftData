@@ -18,7 +18,7 @@
 	<key>MovieHeader</key>
 	<dict>
 		<key>Authorization</key>
-		<string>Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmNGI4ODk2ODBkODI1ZmI2MGZlYmFjYTk1NjgxYTkxZCIsInN1YiI6IjY1NmFkYWRhZmNhZGI0MDBhZGQzNjlhMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.d-OSE-4XS7pdA33Xi7VdJzX_NiP2rqh-e8tFITQNYhA</string>
+		<string>Bearer &lt;ACCESS_TOKEN_AUTH_HERE&gt;</string>
 		<key>accept</key>
 		<string>application/json</string>
 	</dict>

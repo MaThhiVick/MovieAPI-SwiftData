@@ -65,4 +65,16 @@ final class MovieListViewModelTests: XCTestCase {
         XCTAssertFalse(sut.topRatedList[0].isFavorite!)
         XCTAssertTrue(sut.favoritesMovies.isEmpty)
     }
+
+    func testHandleUrl_whenUrlIsValid_shouldShowDetailView() {
+        let movie = MovieResponseModelMock.getMovieResponse().first!
+        let url = URL(string: "movieapi:favoriteMovie?id=\(movie.id)")!
+        sut.isLoading = false
+        sut.favoritesMovies.append(movie)
+
+        sut.handle(url: url)
+
+        XCTAssertEqual(sut.selectedFavoriteId, movie.id)
+        XCTAssertTrue(sut.showDetailView)
+    }
 }

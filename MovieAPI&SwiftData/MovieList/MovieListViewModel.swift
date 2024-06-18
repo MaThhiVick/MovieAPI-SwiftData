@@ -37,34 +37,24 @@ final class MovieListViewModel: ObservableObject {
         checkIfShouldOpenDetail()
     }
 
-    func getFavoriteMovie() -> Movie? {
-        return favoritesMovies.filter({ $0.id == selectedFavoriteId }).first
-    }
-
     func handle(url: URL) {
-        guard let id = getIdFrom(url: url) else { return }
+        guard let id = url.extractID() else { return }
         selectedFavoriteId = id
         if !isLoading {
             checkIfShouldOpenDetail()
         }
     }
 
-    func getIdFrom(url: URL) -> Int? {
-        if let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false),
-           let queryItems = urlComponents.queryItems,
-           let idItem = queryItems.first(where: { $0.name == "id" }),
-           let id = Int(idItem.value ?? "") {
-            return id
-        }
-        return nil
-    }
-
-    func checkIfShouldOpenDetail() {
+    private func checkIfShouldOpenDetail() {
         guard selectedFavoriteId != nil,
         let _ = getFavoriteMovie() else {
             return
         }
         showDetailView = true
+    }
+
+    func getFavoriteMovie() -> Movie? {
+        return favoritesMovies.filter({ $0.id == selectedFavoriteId }).first
     }
 
     private func favoriteMovieSetup(_ idList: [FavoriteMovieIdentification]) {

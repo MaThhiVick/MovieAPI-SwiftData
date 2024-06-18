@@ -58,7 +58,7 @@ struct MovieDetailView: View {
 
     @ViewBuilder
     func subheader() -> some View {
-        Text(viewModel.movieDetail?.originalTitle ?? "")
+        Text(viewModel.movieDetail?.title ?? "")
             .multilineTextAlignment(.center)
             .font(.title)
             .padding(.top, 8)
