@@ -67,6 +67,7 @@ final class MovieListViewModel: ObservableObject {
     }
 
     private func favoriteMovieSetup(_ idList: [FavoriteMovieIdentification]) {
+        favoritesMovies = []
         isTheseMovies(&topRatedList, favorite: idList)
         isTheseMovies(&popularList, favorite: idList)
     }

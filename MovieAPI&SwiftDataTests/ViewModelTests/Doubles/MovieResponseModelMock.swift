@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import struct Common.Movie
+@testable import struct Common.Movie
 
 public struct MovieResponseModelMock {
     public static func getMovieResponse() -> [Movie] {

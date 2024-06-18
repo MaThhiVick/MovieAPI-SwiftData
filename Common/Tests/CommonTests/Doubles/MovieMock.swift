@@ -6,15 +6,9 @@
 //
 
 import Foundation
+@testable import Common
 
-public struct MovieResponseModelMock: MovieResponseModel {
-    public static func == (
-        lhs: MovieAPI_SwiftData.MovieResponseModel,
-        rhs: MovieAPI_SwiftData.MovieResponseModel
-    ) -> Bool {
-        return lhs.movies == rhs.movies
-    }
-
+extension MovieResponseModel {
     public static func getMovieResponse() -> MovieResponseModel {
         return MovieResponseModel(
             dates: Dates(maximum: "2023-12-31", minimum: "2023-01-01"),

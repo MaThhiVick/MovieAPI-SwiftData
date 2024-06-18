@@ -36,10 +36,8 @@ struct MovieDetailView: View {
             }
         }
         .redacted(reason: $viewModel.isLoading.wrappedValue == true ? .placeholder : [])
-        .onAppear {
-            Task {
-                await viewModel.getMovieDetail()
-            }
+        .task {
+            await viewModel.getMovieDetail()
         }
     }
 
@@ -54,8 +52,8 @@ struct MovieDetailView: View {
         ) {
             viewModel.favoriteAction()
         }
-            .frame(height: 600)
-            .ignoresSafeArea(edges: .top)
+        .frame(height: 600)
+        .ignoresSafeArea(edges: .top)
     }
 
     @ViewBuilder

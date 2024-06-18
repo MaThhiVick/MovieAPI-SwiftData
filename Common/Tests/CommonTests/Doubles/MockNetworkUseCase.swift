@@ -5,9 +5,8 @@
 //  Created by Matheus Vicente on 22/05/24.
 //
 
+@testable import Common
 import Foundation
-@testable import MovieAPI_SwiftData
-import Common
 
 class MockNetworkUseCase: NetworkRequestUseCase {
     var shouldReturnNil = false

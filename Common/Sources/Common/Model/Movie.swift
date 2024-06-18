@@ -26,46 +26,6 @@ public struct Movie: Codable, Hashable {
     public var isFavorite: Bool?
     public var movieType: MovieListType?
 
-    public init(
-        adult: Bool,
-        backdropPath: String,
-        genreIDs: [Int],
-        id: Int,
-        originalLanguage: String,
-        originalTitle: String,
-        overview: String,
-        popularity: Double,
-        posterPath: String,
-        releaseDate: String,
-        title: String,
-        video: Bool,
-        voteAverage: Double,
-        voteCount: Int,
-        imageData: Data? = nil,
-        isFavorite: Bool? = nil,
-        movieType: MovieListType? = nil
-    ) {
-        self.adult = adult
-        self.backdropPath = backdropPath
-        self.genreIDs = genreIDs
-        self.id = id
-        self.originalLanguage = originalLanguage
-        self.originalTitle = originalTitle
-        self.overview = overview
-        self.popularity = popularity
-        self.posterPath = posterPath
-        self.releaseDate = releaseDate
-        self.title = title
-        self.video = video
-        self.voteAverage = voteAverage
-        self.voteCount = voteCount
-        self.imageData = imageData
-        self.isFavorite = isFavorite
-        self.movieType = movieType
-    }
-}
-
-extension Movie {
     enum CodingKeys: String, CodingKey {
         case adult
         case backdropPath = "backdrop_path"

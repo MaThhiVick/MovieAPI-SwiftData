@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import MovieAPI_SwiftData
+@testable import Common
 
 final class MovieDataProviderTests: XCTestCase {
     var sut: MovieDataProvider!

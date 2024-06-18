@@ -8,6 +8,7 @@
 import SwiftData
 import Foundation
 
+@available(macOS 14, *)
 @Model
 public class FavoriteMovieIdentification: Hashable {
     @Attribute(.unique) public let id: Int

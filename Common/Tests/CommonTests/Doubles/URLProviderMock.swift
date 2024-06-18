@@ -6,12 +6,12 @@
 //
 
 import Foundation
-@testable import MovieAPI_SwiftData
+@testable import Common
 
 final class URLProviderMock: URLProvider {
     var shouldReturnNil = false
 
-    func getURLMovie(from urlType: MovieAPI_SwiftData.URLMoviesType) -> URL? {
+    func getURLMovie(from urlType: URLMoviesType) -> URL? {
         if shouldReturnNil {
             return nil
         }

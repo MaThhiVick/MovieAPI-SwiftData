@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import MovieAPI_SwiftData
+@testable import Common
 
 final class NetworkUseCaseTests: XCTestCase {
    private var sut: NetworkUseCase!

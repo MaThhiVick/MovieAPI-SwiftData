@@ -6,8 +6,7 @@
 //
 
 import Foundation
-@testable import MovieAPI_SwiftData
-import Common
+@testable import Common
 
 final class NetworkServiceMock: NetworkRequesting {
     var dataToReturn: Encodable = "test"
