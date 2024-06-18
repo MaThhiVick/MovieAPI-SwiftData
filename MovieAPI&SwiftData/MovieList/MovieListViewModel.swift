@@ -6,45 +6,74 @@
 //
 
 import SwiftData
+import Common
 import SwiftUI
+import WidgetKit
 
 final class MovieListViewModel: ObservableObject {
     let movieProvider: MovieDataProviderProtocol
-    let networkService: NetworkRequestUseCase
     @Published var modelContext: ModelContext
-    @Published var favoriteMoviesInformation = [FavoriteMovieInformation]()
+    @Published var favoriteMoviesInformation = [FavoriteMovieIdentification]()
     @Published var topRatedList = [Movie]()
     @Published var popularList = [Movie]()
     @Published var favoritesMovies = [Movie]()
     @Published var isLoading = true
-
+    @Published var selectedFavoriteId: Int?
+    @Published var showDetailView = false
 
     init(movieProvider: MovieDataProviderProtocol = MovieDataProvider(),
-         networkService: NetworkRequestUseCase = NetworkUseCase(),
          modelContext: ModelContext) {
         self.movieProvider = movieProvider
-        self.networkService = networkService
         self.modelContext = modelContext
     }
 
     @MainActor
     func getAllListMovies() async {
-        Task {
-            topRatedList = await movieProvider.getMovies(from: .list(.topRated))
-            popularList = await movieProvider.getMovies(from: .list(.popular))
-            fetchData()
-            favoriteMovieSetup(favoriteMoviesInformation)
-            isLoading = false
+        topRatedList = await movieProvider.getMovies(from: .list(.topRated))
+        popularList = await movieProvider.getMovies(from: .list(.popular))
+        fetchData()
+        favoriteMovieSetup(favoriteMoviesInformation)
+        isLoading = false
+        checkIfShouldOpenDetail()
+    }
+
+    func getFavoriteMovie() -> Movie? {
+        return favoritesMovies.filter({ $0.id == selectedFavoriteId }).first
+    }
+
+    func handle(url: URL) {
+        guard let id = getIdFrom(url: url) else { return }
+        selectedFavoriteId = id
+        if !isLoading {
+            checkIfShouldOpenDetail()
         }
     }
 
-    private func favoriteMovieSetup(_ idList: [FavoriteMovieInformation]) {
+    func getIdFrom(url: URL) -> Int? {
+        if let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false),
+           let queryItems = urlComponents.queryItems,
+           let idItem = queryItems.first(where: { $0.name == "id" }),
+           let id = Int(idItem.value ?? "") {
+            return id
+        }
+        return nil
+    }
+
+    func checkIfShouldOpenDetail() {
+        guard selectedFavoriteId != nil,
+        let _ = getFavoriteMovie() else {
+            return
+        }
+        showDetailView = true
+    }
+
+    private func favoriteMovieSetup(_ idList: [FavoriteMovieIdentification]) {
         favoritesMovies = []
         isTheseMovies(&topRatedList, favorite: idList)
         isTheseMovies(&popularList, favorite: idList)
     }
 
-    private func isTheseMovies(_ movies: inout [Movie], favorite: [FavoriteMovieInformation]) {
+    private func isTheseMovies(_ movies: inout [Movie], favorite: [FavoriteMovieIdentification]) {
         let favoriteMoviesId = Set(favorite.map { $0.id })
 
         for index in movies.indices where favoriteMoviesId.contains(movies[index].id) {
@@ -82,6 +111,9 @@ final class MovieListViewModel: ObservableObject {
     }
 
     func favoriteAction(fromMovie movie: Movie, at index: Int) {
+        defer {
+            WidgetCenter.shared.reloadAllTimelines()
+        }
         if movie.isFavorite ?? false {
             favoritesMovies.removeAll(where: { $0.id == movie.id })
             removeFavoriteMovieBy(id: movie.id, fromList: movie.movieType ?? . topRated)
@@ -92,7 +124,7 @@ final class MovieListViewModel: ObservableObject {
             }
         } else {
             modelContext.insert(
-                FavoriteMovieInformation(
+                FavoriteMovieIdentification(
                     id: movie.id,
                     movieType: movie.movieType ?? .topRated
                 )
@@ -103,7 +135,7 @@ final class MovieListViewModel: ObservableObject {
 
     private func fetchData() {
         do {
-            let descriptor = FetchDescriptor<FavoriteMovieInformation>()
+            let descriptor = FetchDescriptor<FavoriteMovieIdentification>()
             favoriteMoviesInformation = try modelContext.fetch(descriptor)
         } catch {
             print("Fetch failed")

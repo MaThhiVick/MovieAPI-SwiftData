@@ -6,16 +6,16 @@
 //
 
 import SwiftData
+import Common
 import SwiftUI
 
 struct MovieDetailView: View {
-    @Query var movies: [FavoriteMovieInformation]
     @ObservedObject private var viewModel: MovieDetailViewModel
 
     init(
-        movieInformation: Movie,
+        movieInformation: Movie?,
         modelContext: ModelContext,
-        favoriteMovieInformation: [FavoriteMovieInformation]
+        favoriteMovieInformation: [FavoriteMovieIdentification]
     ) {
         viewModel = MovieDetailViewModel(
             movieInformation: movieInformation,
@@ -36,10 +36,8 @@ struct MovieDetailView: View {
             }
         }
         .redacted(reason: $viewModel.isLoading.wrappedValue == true ? .placeholder : [])
-        .onAppear {
-            Task {
-                await viewModel.getMovieDetail()
-            }
+        .task {
+            await viewModel.getMovieDetail()
         }
     }
 
@@ -47,15 +45,15 @@ struct MovieDetailView: View {
     func movieCard() -> some View {
         MovieCard(
             image: UIImage().dataConvert(
-                data: viewModel.movieInformation.imageData
+                data: viewModel.movieInformation?.imageData
             ),
-            isFavorite: viewModel.movieInformation.isFavorite ?? false,
+            isFavorite: viewModel.movieInformation?.isFavorite ?? false,
             cardSize: .big
         ) {
             viewModel.favoriteAction()
         }
-            .frame(height: 600)
-            .ignoresSafeArea(edges: .top)
+        .frame(height: 600)
+        .ignoresSafeArea(edges: .top)
     }
 
     @ViewBuilder

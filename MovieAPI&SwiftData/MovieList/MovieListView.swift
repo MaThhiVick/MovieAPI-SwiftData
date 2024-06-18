@@ -7,7 +7,7 @@
 
 import SwiftData
 import SwiftUI
-import NetworkService
+import Common
 
 struct MovieListView: View {
     @ObservedObject var viewModel: MovieListViewModel
@@ -26,14 +26,21 @@ struct MovieListView: View {
                     carouselSection(movieList: $viewModel.popularList, title: "Popular")
                     carouselSection(movieList: $viewModel.favoritesMovies, title: "Favorite movies")
                 }
-
             }
             .redacted(reason: $viewModel.isLoading.wrappedValue == true ? .placeholder : [])
-            .onAppear {
-                Task  {
-                    await viewModel.getAllListMovies()
-                }
+            .task {
+                await viewModel.getAllListMovies()
             }
+            .navigationDestination(isPresented: $viewModel.showDetailView) {
+                MovieDetailView(
+                    movieInformation: viewModel.getFavoriteMovie(),
+                    modelContext: viewModel.modelContext,
+                    favoriteMovieInformation: viewModel.favoriteMoviesInformation
+                )
+            }
+        }
+        .onOpenURL { url in
+            viewModel.handle(url: url)
         }
     }
 
@@ -47,8 +54,8 @@ struct MovieListView: View {
         TabView(selection: $tabBarPosition) {
             ForEach(Array(viewModel.topRatedList.enumerated()), id: \.element) { index, movie in
                 NavigationLink(destination: MovieDetailView(movieInformation: movie,
-                                                    modelContext: viewModel.modelContext,
-                                                    favoriteMovieInformation: viewModel.favoriteMoviesInformation)) {
+                                                            modelContext: viewModel.modelContext,
+                                                            favoriteMovieInformation: viewModel.favoriteMoviesInformation)) {
                     MovieCard(
                         image: UIImage().dataConvert(
                             data: movie.imageData
@@ -70,8 +77,8 @@ struct MovieListView: View {
     func carouselSection(movieList: Binding<[Movie]> , title: String) -> some View {
         Carousel(items: movieList, title: title) { index, movie in
             NavigationLink(destination: MovieDetailView(movieInformation: movie,
-                                                modelContext: viewModel.modelContext,
-                                                favoriteMovieInformation: viewModel.favoriteMoviesInformation)) {
+                                                        modelContext: viewModel.modelContext,
+                                                        favoriteMovieInformation: viewModel.favoriteMoviesInformation)) {
                 MovieCard(
                     image: UIImage().dataConvert(data: movie.imageData),
                     isFavorite: movie.isFavorite ?? false,

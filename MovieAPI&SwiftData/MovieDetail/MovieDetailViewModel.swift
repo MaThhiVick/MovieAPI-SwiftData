@@ -6,22 +6,23 @@
 //
 
 import SwiftData
+import Common
 import SwiftUI
+import WidgetKit
 
 class MovieDetailViewModel: ObservableObject {
     let networkService: NetworkRequestUseCase
-    @Published var movieInformation: Movie
+    @Published var movieInformation: Movie?
     @Published var movieDetail: MovieDetailModel?
     @Published var isLoading = true
     @Published var modelContext: ModelContext
-    @Published var favoriteMoviesInformation = [FavoriteMovieInformation]()
-
+    @Published var favoriteMoviesInformation = [FavoriteMovieIdentification]()
 
     init(
         networkService: NetworkRequestUseCase = NetworkUseCase(),
-        movieInformation: Movie,
+        movieInformation: Movie?,
         modelContext: ModelContext,
-        favoriteMoviesInformation: [FavoriteMovieInformation]
+        favoriteMoviesInformation: [FavoriteMovieIdentification]
     ) {
         self.networkService = networkService
         self.movieInformation = movieInformation
@@ -31,7 +32,7 @@ class MovieDetailViewModel: ObservableObject {
 
     @MainActor
     func getMovieDetail() async {
-        guard let result: MovieDetailModel = await networkService.request(urlMovie: .detail(self.movieInformation.id)) else {
+        guard let result: MovieDetailModel = await networkService.request(urlMovie: .detail(self.movieInformation?.id ?? 0)) else {
             return
         }
         movieDetail = result
@@ -39,17 +40,21 @@ class MovieDetailViewModel: ObservableObject {
     }
 
     func favoriteAction() {
-        if movieInformation.isFavorite ?? false {
-            movieInformation.isFavorite = false
-            if let objectToDelete = favoriteMoviesInformation.first(where: { $0.id == movieInformation.id }) {
+        defer {
+            WidgetCenter.shared.reloadAllTimelines()
+        }
+
+        if movieInformation?.isFavorite ?? false {
+            movieInformation?.isFavorite = false
+            if let objectToDelete = favoriteMoviesInformation.first(where: { $0.id == movieInformation?.id ?? 0 }) {
                 modelContext.delete(objectToDelete)
             }
         } else {
-            movieInformation.isFavorite = true
+            movieInformation?.isFavorite = true
             modelContext.insert(
-                FavoriteMovieInformation(
-                    id: movieInformation.id,
-                    movieType: movieInformation.movieType ?? .topRated
+                FavoriteMovieIdentification(
+                    id: movieInformation?.id ?? 0,
+                    movieType: movieInformation?.movieType ?? .topRated
                 )
             )
         }
