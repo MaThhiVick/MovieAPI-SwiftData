@@ -17,12 +17,20 @@ struct Provider: TimelineProvider {
     }
 
     func placeholder(in context: Context) -> MovieEntry {
-        MovieEntry(date: .now, title: "placehorder", image: Data(), id: nil)
+        MovieEntry(date: .now, title: "", image: Data(), id: nil)
     }
 
     func getSnapshot(in context: Context, completion: @escaping (MovieEntry) -> Void) {
-        let entry = MovieEntry(date: .now, title: "Snapshot", image: Data(), id: nil)
-        completion(entry)
+        Task {
+            let favoriteMovies = await getFavoriteMovies()
+
+            if let lastMovie = favoriteMovies.last,
+               let movieInformation = await getMovieData(fromId: lastMovie.id) {
+                completion(movieInformation)
+            } else {
+                completion(MovieEntry(date: .now, title: "", image: Data(), id: nil))
+            }
+        }
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<MovieEntry>) -> Void) {
