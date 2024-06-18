@@ -2,13 +2,15 @@
 
 MovieAPI-SwiftData is a simple mobile application developed in Swift using SwiftUI and SwiftData for persistence.
 It allows users to discover the most popular and highly rated movies using the [The Movie Database (TMDb) API](https://www.themoviedb.org/documentation/api).
-The app allows users to save their favorite movies.
+The app allows users to save their favorite movies and widgets to show these movies. 
 
 ## Features
 
 - Browse a list of movies(top rated and popular)
 - Access movies details
 - Favorite movies
+- Small widget: Displays the poster of the user’s favorite movie.
+- Medium widget: Displays the title and the poster of the user’s favorite movie.
 
 ## Installation
 
