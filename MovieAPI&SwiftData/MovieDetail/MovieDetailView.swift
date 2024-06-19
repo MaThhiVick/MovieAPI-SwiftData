@@ -6,8 +6,9 @@
 //
 
 import SwiftData
-import Common
 import SwiftUI
+import struct Common.Movie
+import class Common.FavoriteMovieIdentification
 
 struct MovieDetailView: View {
     @ObservedObject private var viewModel: MovieDetailViewModel

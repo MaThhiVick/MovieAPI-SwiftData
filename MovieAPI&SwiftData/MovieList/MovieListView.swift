@@ -7,7 +7,7 @@
 
 import SwiftData
 import SwiftUI
-import Common
+import struct Common.Movie
 
 struct MovieListView: View {
     @ObservedObject var viewModel: MovieListViewModel
